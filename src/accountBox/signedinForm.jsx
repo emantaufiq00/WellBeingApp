@@ -3,17 +3,21 @@ import { useEasybase } from 'easybase-react';
 import { BoxContainer, SubmitButton } from "./common";
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContent";
+import { Router, Link } from 'react-router-dom';
 
 
 
 export function SignedInForm(props) {
+
     const { isUserSignedIn, signOut } = useEasybase();
     const { switchToSignin } = useContext(AccountContext);
 
     if (isUserSignedIn()) {
     return (
             <BoxContainer>
-                <SubmitButton onClick={signOut}>Sign Out</SubmitButton>
+                <Router>
+                    <Link to="../nutrition.js">Go</Link>
+                </Router>
                 <Marginer direction="vertical" margin="1em" />
             </BoxContainer>
     );
