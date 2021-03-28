@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { useEasybase } from 'easybase-react';
 import { BoxContainer, SubmitButton } from "./common";
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContent";

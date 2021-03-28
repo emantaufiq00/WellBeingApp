@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { LoginForm } from "./loginForm";
-import { SignupForm } from "./signupForm";
-import { SignedInForm } from "./signedinForm"
+import { LoginForm } from "./loginForm.jsx";
+import { SignupForm } from "./signupForm.jsx";
 import { motion } from "framer-motion";
 import { AccountContext } from "./accountContent";
+import { useUser } from 'reactfire';
+import { useHistory } from 'react-router-dom';
 
 /*Iphone look alike container*/
 const BoxContainer = styled.div`
@@ -113,6 +114,8 @@ const expandingTransition = {
 
 
 export function AccountBox(props) {
+    const user = useUser();
+    const history = useHistory();
     const [isExpanded, setExpanded] = useState(false);
     const [active, setActive] = useState("signin");
 
@@ -138,46 +141,35 @@ export function AccountBox(props) {
         }, 400);
     }
 
-    const switchToSignedIn = () => {
-        playExpandedingAnimation();
-        setTimeout(() => {
-            setActive("signedin");
-        }, 400);
-    }
-    const contextValue = { switchToSignup, switchToSignin, switchToSignedIn };
+    const contextValue = { switchToSignup, switchToSignin };
+    console.log(user)
 
     return (
         <AccountContext.Provider value={contextValue}>
         <BoxContainer>
-            <TopContainer>
-                <BackDrop
-                    initial={false}
-                    animate={isExpanded ? "expanded" : "collapsed"}
-                    variants={backdropVariants}
-                    transition={expandingTransition}
-                />
-                {active === "signin" && <HeaderContainer>
-                    <HeaderText>Welcome</HeaderText>
-                    <HeaderText>Back</HeaderText>
-                    <SmallText>Please sign-in to continue!</SmallText>
-                </HeaderContainer>}
-                {active === "signup" && <HeaderContainer>
-                    <HeaderText>Create</HeaderText>
-                    <HeaderText>Account</HeaderText>
-                    <SmallText>Please sign-up to continue!</SmallText>
-                </HeaderContainer>}
-                {active === "signedin" && <HeaderContainer>
-                    <HeaderText>Signed</HeaderText>
-                    <HeaderText>In</HeaderText>
-                    <SmallText>You are currently signed in!</SmallText>
-                </HeaderContainer>}
-            </TopContainer>
-            <InnerContainer>
-                {active === "signin" && <LoginForm />}
-                {active === "signup" && <SignupForm />}
-                {active === "signedin" && <SignedInForm />}
-            </InnerContainer>
-        </BoxContainer>
-        </AccountContext.Provider>
-    );
+        <TopContainer>
+            <BackDrop
+                initial={false}
+                animate={isExpanded ? "expanded" : "collapsed"}
+                variants={backdropVariants}
+                transition={expandingTransition}
+            />
+            {active === "signin" && <HeaderContainer>
+                <HeaderText>Welcome</HeaderText>
+                <HeaderText>Back</HeaderText>
+                <SmallText>Please sign-in to continue!</SmallText>
+            </HeaderContainer>}
+            {active === "signup" && <HeaderContainer>
+                <HeaderText>Create</HeaderText>
+                <HeaderText>Account</HeaderText>
+                <SmallText>Please sign-up to continue!</SmallText>
+            </HeaderContainer>}
+        </TopContainer>
+        <InnerContainer>
+            {active === "signin" && <LoginForm />}
+            {active === "signup" && <SignupForm />}
+        </InnerContainer>
+    </BoxContainer>
+    </AccountContext.Provider>       
+    )
 }

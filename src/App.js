@@ -1,25 +1,25 @@
 import React from 'react';
-import './App.css';
-import styled from "styled-components";
-import { AccountBox } from './accountBox';
-import { EasybaseProvider } from 'easybase-react';
-import ebconfig from "./ebconfig.js";
-import NutritionT from "./nutrition.js"
-
-const AppContainer = styled.div`
-    width: 100%;
-    min-height: 100%;
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-`;
-
+import "./App.css";
+import AuthProvider from './Authentication';
+import PrivateRoute from './PrivateRoute';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Home from './Home'
+import SignIn from './SignIn'
+import SignUp from './SignUp'
+import NutritionT from './nutrition'
 
 function App() {
   return (
-      <NutritionT />
+    <AuthProvider>
+      <Router>
+         <div>
+           <PrivateRoute exact path="/" component={Home} />
+           <PrivateRoute exact path="/nutrition" component={NutritionT} />
+           <Route exact path="/login" component={SignIn} />
+           <Route exact path="/signup" component={SignUp} />
+        </div>
+      </Router>
+  </AuthProvider>
   );
 }
 
