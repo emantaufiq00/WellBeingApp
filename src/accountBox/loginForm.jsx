@@ -17,6 +17,8 @@ export function LoginForm({history}) {
         async event => {
           event.preventDefault();
           const { email, password } = event.target.elements;
+          console.log(email)
+          console.log(password)
           try {
             await app
               .auth()

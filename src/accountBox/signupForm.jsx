@@ -31,7 +31,7 @@ export function SignupForm() {
             <BoxContainer>
                 <FormContainer onSubmit={handleSignUp}>
                     <Input id="email" name="email" type="email" placeholder="Email" onChange={ event => event.target.value } />
-                    <Input id="email" name="password" type="password" placeholder="Password" onChange={ event => event.target.value } />
+                    <Input id="password" name="password" type="password" placeholder="Password" onChange={ event => event.target.value } />
                     <Marginer direction="vertical" margin={0} />
                     <Marginer direction="vertical" margin="1.6em" />
                     <SubmitButton type="submit">Register</SubmitButton>
