@@ -53,6 +53,9 @@ export default function ButtonAppBar() {
         if (text === 'Nutrition') {
             history.push('/nutrition')
         }
+        else if (text === 'Mood') {
+            history.push('/mood')
+        }
     }
     
     const list = (anchor) => (

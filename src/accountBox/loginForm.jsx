@@ -1,56 +1,48 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useCallback } from "react";
 import { BoxContainer, FormContainer, Input, SubmitButton, MutedLink, BoldLink } from "./common";
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContent";
-import 'firebase/auth';
-import { useFirebaseApp } from 'reactfire';
+import { Redirect } from "react-router";
+import app from "../firebaseconfig.jsx";
+import { AuthContext } from "../Authentication.js";
 
-export function LoginForm() {
-    const [user, setUser] = useState({
-        email: '',
-        password: '',
-        error: '',
-    });
 
-    const handleChange = e => {
-        setUser({
-            ...user,
-            [e.target.name]: e.target.value,
-            error: '',
-        })
-    };
 
-    const firebase = useFirebaseApp();
+export function LoginForm({history}) {
 
-    const handleSubmit = e => {
-        e.preventDefault();
-
-        firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-            .then(result => {
-                if (!result.user.emailVerified) {
-                    setUser({
-                        ...user,
-                        error: 'Please verify your email before you can continue',
-                    })
-                    firebase.auth().signOut();
-                }
-            })
-            .catch(error => {
-                setUser({
-                    ...user,
-                    error: error.message,
-                })
-            })
-    }
+    const handleLogin = useCallback(
+        async event => {
+          event.preventDefault();
+          const { email, password } = event.target.elements;
+          try {
+            await app
+              .auth()
+              .signInWithEmailAndPassword(email.value, password.value);
+            history.push("/");
+          } catch (error) {
+            alert(error);
+          }
+        },
+        [history]
+      );
 
     const { switchToSignup } = useContext(AccountContext);
+    const { currentUser } = useContext(AuthContext);
+    
+    if (currentUser) {
+    return <Redirect to="/" />;
+    }
+
+    
 
     return (
             <BoxContainer>
-                <FormContainer onSubmit={handleSubmit}>
-                    <Input name="username" type="email" placeholder="Email" onChange={handleChange} />
-                    <Input name="password" type="password" placeholder="Password" onChange={handleChange} />
+                <FormContainer onSubmit={handleLogin}>
+                    <Input id="email" name="email" type="email" placeholder="Email" onChange={ event => event.target.value } />
+                    <Input id="password" name="password" type="password" placeholder="Password" onChange={ event => event.target.value } />
                     <Marginer direction="vertical" margin="1.6em" />
                     <SubmitButton type="submit">Signin</SubmitButton>
                 </FormContainer>

@@ -112,6 +112,9 @@ function ButtonAppBar() {
         if (text === 'Home') {
             history.push('/')
         }
+        else if (text === 'Mood') {
+            history.push('/mood')
+        }
     }
     
     const list = (anchor) => (
