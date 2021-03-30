@@ -11,51 +11,52 @@ import { AuthContext } from "../Authentication.js";
 
 
 
-export function LoginForm({history}) {
+export function LoginForm({ history }) {
 
-    const handleLogin = useCallback(
-        async event => {
-          event.preventDefault();
-          const { email, password } = event.target.elements;
-          console.log(email)
-          console.log(password)
-          try {
-            await app
-              .auth()
-              .signInWithEmailAndPassword(email.value, password.value);
-              if (!Array.isArray(history)) {
-                history = [];
-            }
-            history.push('/');;
-          } catch (error) {
-            alert(error);
-          }
-        },
-        [history]
-      );
+  const handleLogin = useCallback(
+    async event => {
+      event.preventDefault();
+      const { email, password } = event.target.elements;
+      console.log(email)
+      console.log(password)
+      try {
+        await app
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+        if (!Array.isArray(history)) {
+          history = [];
+        }
+        history.push('/');;
+      } catch (error) {
+        alert(error);
+      }
+    },
+    [history]
+  );
 
-    const { switchToSignup } = useContext(AccountContext);
-    const { currentUser } = useContext(AuthContext);
-    
-    if (currentUser) {
+  const { switchToSignup } = useContext(AccountContext);
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
     return <Redirect to="/" />;
-    }
+  }
 
-    
 
-    return (
-            <BoxContainer>
-                <FormContainer onSubmit={handleLogin}>
-                    <Input id="email" name="email" type="email" placeholder="Email" onChange={ event => event.target.value } />
-                    <Input id="password" name="password" type="password" placeholder="Password" onChange={ event => event.target.value } />
-                    <Marginer direction="vertical" margin="1.6em" />
-                    <SubmitButton type="submit">Signin</SubmitButton>
-                </FormContainer>
-                <Marginer direction="vertical" margin={5} />
-                <MutedLink href="#">Forgot your password?</MutedLink>        
-                <Marginer direction="vertical" margin="1em" />
-                <MutedLink href="#">Don't have an account?<BoldLink href="#" onClick={switchToSignup}>Register</BoldLink></MutedLink>
-            </BoxContainer>
-    );
+
+  return (
+    <BoxContainer>
+      <FormContainer onSubmit={handleLogin}>
+        <Input id="email" name="email" type="email" placeholder="Email" onChange={event => event.target.value} />
+        <Input id="password" name="password" type="password" placeholder="Password" onChange={event => event.target.value} />
+        <Marginer direction="vertical" margin={10} />
+        <MutedLink href="#">Forgot your password?</MutedLink>
+        <Marginer direction="vertical" margin="1em" />
+        <SubmitButton type="submit" >Signin</SubmitButton>
+      </FormContainer>
+
+      <Marginer direction="vertical" margin="1em" />
+      <MutedLink href="#">Don't have an account?<BoldLink href="#" onClick={switchToSignup}>Register</BoldLink></MutedLink>
+    </BoxContainer>
+  );
 
 }
