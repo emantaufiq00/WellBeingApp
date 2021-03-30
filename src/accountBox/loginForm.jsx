@@ -23,7 +23,10 @@ export function LoginForm({history}) {
             await app
               .auth()
               .signInWithEmailAndPassword(email.value, password.value);
-            history.push("/");
+              if (!Array.isArray(history)) {
+                history = [];
+            }
+            history.push('/');;
           } catch (error) {
             alert(error);
           }
