@@ -9,19 +9,18 @@ import NutritionT from './nutrition'
 import Mood from './MoodTracker'
 
 
-
 function App() {
   return (
     <AuthProvider>
       <Router>
-         <div>
-           <PrivateRoute exact path="/" component={Home} />
-           <PrivateRoute exact path="/nutrition" component={NutritionT} />
-           <PrivateRoute exact path="/mood" component={Mood} />
-           <Route exact path="/login" component={AccountBox} />
+        <div>
+          <PrivateRoute exact path="/" component={Home} />
+          <PrivateRoute exact path="/nutrition" component={NutritionT} />
+          <PrivateRoute exact path="/mood" component={Mood} />
+          <Route exact path="/login" component={AccountBox} />
         </div>
       </Router>
-  </AuthProvider>
+    </AuthProvider>
   );
 }
 

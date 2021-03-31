@@ -31,188 +31,188 @@ const KawaiiContainer = styled.section`
 `;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-  list: {
-    width: 250,
-  },
-  fullList: {
-  width: 'auto',
-  },
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    },
+    list: {
+        width: 250,
+    },
+    fullList: {
+        width: 'auto',
+    },
 }));
 
 function ButtonAppBar() {
-  const classes = useStyles();
-  const history = useHistory();
-  const [state, setState] = React.useState({
-      left: false,
-  });
-  
-  const toggleDrawer = (anchor, open) => (event) => {
-      if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-      }
-  
-      setState({ ...state, [anchor]: open });
-  };
+    const classes = useStyles();
+    const history = useHistory();
+    const [state, setState] = React.useState({
+        left: false,
+    });
 
-  const goToSelected = (text) => {
-      if (text === 'Home') {
-        history.push('/')
-      }
-      else if (text === 'Nutrition') {
-          history.push('/nutrition')
-      }
-      
-  }
-  
-  const list = (anchor) => (
-      <div
-      className={clsx(classes.list, {
-          [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-      })}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-      >
-      <List>
-          {['Home', 'Feed', 'Nutrition', 'Fitness'].map((text, index) => (
-          <ListItem button key={text} onClick={ () => goToSelected(text)}>
-              <ListItemText primary={text} />
-          </ListItem>
-          ))}
-      </List>
-      <Divider />
-      <List>
-          {['Settings'].map((text, index) => (
-          <ListItem button key={text}>
-              <ListItemText primary={text} />
-          </ListItem>
-          ))}
-      </List>
-      </div>
-  );
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setState({ ...state, [anchor]: open });
+    };
+
+    const goToSelected = (text) => {
+        if (text === 'Home') {
+            history.push('/')
+        }
+        else if (text === 'Nutrition') {
+            history.push('/nutrition')
+        }
+
+    }
+
+    const list = (anchor) => (
+        <div
+            className={clsx(classes.list, {
+                [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+            })}
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <List>
+                {['Home', 'Feed', 'Nutrition', 'Fitness'].map((text, index) => (
+                    <ListItem button key={text} onClick={() => goToSelected(text)}>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+            <Divider />
+            <List>
+                {['Settings'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+        </div>
+    );
 
 
-return (
-  <div>
-      <div className={classes.root}>
-          <AppBar position="static">
-              <Toolbar>
-              <IconButton edge="start" onClick={toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-              <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer(['right', 'top', 'bottom'], false)}>
-                      {list('left')}
-                  </Drawer>
-              </IconButton>
-              <Typography variant="h6" className={classes.title}>
-                  Mood Tracker
+    return (
+        <div>
+            <div className={classes.root}>
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" onClick={toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="menu">
+                            <MenuIcon />
+                            <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer(['right', 'top', 'bottom'], false)}>
+                                {list('left')}
+                            </Drawer>
+                        </IconButton>
+                        <Typography variant="h6" className={classes.title}>
+                            Mood Tracker
               </Typography>
-              <Button color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
-              </Toolbar>
-          </AppBar>
-      </div>
-  </div>
-);
+                        <Button color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
+                    </Toolbar>
+                </AppBar>
+            </div>
+        </div>
+    );
 }
 
 class Welcome extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mood: "happy",
-      color: "#61DDBC",
-      moodList: ["sad", "shocked", "happy", "blissful"],
-      isClicked: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            mood: "happy",
+            color: "#61DDBC",
+            moodList: ["sad", "shocked", "happy", "blissful"],
+            isClicked: false
+        };
+    }
+
+    clickeds = () => {
+        this.setState({ isClicked: true });
     };
-  }
 
-  clickeds = () => {
-    this.setState({ isClicked: true });
-  };
+    back = () => {
+        this.setState({ isClicked: false });
+    };
 
-  back = () => {
-    this.setState({ isClicked: false });
-  };
-
-  render() {
-    return (
-        <div
-            className="moodTracker-block"
-            style={{ border: "2px solid transparent" }}
-        >
-            <div>
-                <div
-                className={
-                    this.state.isClicked ? "hideEmotion" : "showEmotion"
-                }
-                >
-                <KawaiiContainer>
-                    <Planet mood={this.state.mood} color={this.state.color} />
-                </KawaiiContainer>
-                <br />
-
-                {this.state.moodList.map((item, index) => (
-                    <div>
-                    <button
-                        key={index}
-                        className="ButtonMoods"
-                        onClick={() => {
-                        if (this.state.moodList.includes(item))
-                            this.setState({ mood: item });
-                        }}
-                    >
-                        {item}
-                    </button>
-                    </div>
-                ))}
-                </div>
-
+    render() {
+        return (
+            <div
+                className="moodTracker-block"
+                style={{ border: "2px solid transparent" }}
+            >
                 <div>
-                <div
-                    className={this.state.isClicked ? "boxOpened" : "boxClosed"}
-                >
-                    <div>
-                    <MoodButton
-                        style={{ backgroundColor: "#05386b", float: "left" }}
-                        onClick={this.back}
-                    >
-                        Back
-                    </MoodButton>{" "}
-                    <br />
-                    </div>
-                </div>
-
-                <div style={{ marginTop: "50px" }}>
                     <div
-                    className={this.state.isClicked ? "notShow" : "show"}
-                    onClick={this.clickeds}
+                        className={
+                            this.state.isClicked ? "hideEmotion" : "showEmotion"
+                        }
                     >
-                    <MoodButton
-                        style={{
-                        backgroundColor: "#05386b",
-                        fontSize: "20px",
-                        borderRadius: "14px",
-                        marginRight: "60px"
-                        }}
-                    >
-                        History
-                    </MoodButton>
+                        <KawaiiContainer>
+                            <Planet mood={this.state.mood} color={this.state.color} />
+                        </KawaiiContainer>
+                        <br />
+
+                        {this.state.moodList.map((item, index) => (
+                            <div>
+                                <button
+                                    key={index}
+                                    className="ButtonMoods"
+                                    onClick={() => {
+                                        if (this.state.moodList.includes(item))
+                                            this.setState({ mood: item });
+                                    }}
+                                >
+                                    {item}
+                                </button>
+                            </div>
+                        ))}
                     </div>
-                </div>
+
+                    <div>
+                        <div
+                            className={this.state.isClicked ? "boxOpened" : "boxClosed"}
+                        >
+                            <div>
+                                <MoodButton
+                                    style={{ backgroundColor: "#05386b", float: "left" }}
+                                    onClick={this.back}
+                                >
+                                    Back
+                    </MoodButton>{" "}
+                                <br />
+                            </div>
+                        </div>
+
+                        <div style={{ marginTop: "50px" }}>
+                            <div
+                                className={this.state.isClicked ? "notShow" : "show"}
+                                onClick={this.clickeds}
+                            >
+                                <MoodButton
+                                    style={{
+                                        backgroundColor: "#05386b",
+                                        fontSize: "20px",
+                                        borderRadius: "14px",
+                                        marginRight: "60px"
+                                    }}
+                                >
+                                    History
+                    </MoodButton>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    );
-  }
+        );
+    }
 }
 
 export default function Mood() {
