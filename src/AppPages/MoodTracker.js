@@ -1,11 +1,11 @@
 import React from "react";
-import { Ghost, Planet } from "react-kawaii";
+import { Planet } from "react-kawaii";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./MoodTracker.css";
 import { Button as MoodButton } from "reactstrap";
 import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
-import app from './firebaseconfig';
+import app from '../firebaseconfig';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
