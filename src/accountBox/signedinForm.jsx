@@ -12,18 +12,18 @@ export function SignedInForm(props) {
     const { switchToSignin } = useContext(AccountContext);
 
     if (isUserSignedIn()) {
-    return (
+        return (
             <BoxContainer>
                 <Router>
                     <Link to="../nutrition.js">Go</Link>
                 </Router>
                 <Marginer direction="vertical" margin="1em" />
             </BoxContainer>
-    );
+        );
     } else {
         return (
-        <BoxContainer>
-            <p>You have signed out</p>
+            <BoxContainer>
+                <p>You have signed out</p>
                 <SubmitButton onClick={switchToSignin}>Go Back</SubmitButton>
                 <Marginer direction="vertical" margin="1em" />
             </BoxContainer>

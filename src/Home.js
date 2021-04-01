@@ -17,35 +17,35 @@ import Drawer from '@material-ui/core/Drawer';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-  list: {
-    width: 250,
-  },
-  fullList: {
-  width: 'auto',
-  },
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    },
+    list: {
+        width: 250,
+    },
+    fullList: {
+        width: 'auto',
+    },
 }));
 
-export default function ButtonAppBar() {
+export function ButtonAppBar() {
     const classes = useStyles();
     const history = useHistory();
     const [state, setState] = React.useState({
         left: false,
     });
-    
+
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-        return;
+            return;
         }
-    
+
         setState({ ...state, [anchor]: open });
     };
 
@@ -56,60 +56,65 @@ export default function ButtonAppBar() {
         else if (text === 'Mood') {
             history.push('/mood')
         }
+        else if (text === 'Summary') {
+            history.push('/summary')
+        }
     }
-    
+
     const list = (anchor) => (
         <div
-        className={clsx(classes.list, {
-            [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-        })}
-        role="presentation"
-        onClick={toggleDrawer(anchor, false)}
-        onKeyDown={toggleDrawer(anchor, false)}
+            className={clsx(classes.list, {
+                [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+            })}
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
         >
-        <List>
-            {['Feed', 'Mood', 'Nutrition', 'Fitness'].map((text, index) => (
-            <ListItem button key={text} onClick={ () => goToSelected(text)}>
-                <ListItemText primary={text} />
-            </ListItem>
-            ))}
-        </List>
-        <Divider />
-        <List>
-            {['Settings'].map((text, index) => (
-            <ListItem button key={text}>
-                <ListItemText primary={text} />
-            </ListItem>
-            ))}
-        </List>
+            <List>
+                {['Feed', 'Mood', 'Nutrition', 'Fitness', 'Summary'].map((text, index) => (
+                    <ListItem button key={text} onClick={() => goToSelected(text)}>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+            <Divider />
+            <List>
+                {['Settings'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
         </div>
     );
-  
-  
-  return (
-    <div>
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                <IconButton edge="start" onClick={toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-                <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer(['right', 'top', 'bottom'], false)}>
-                        {list('left')}
-                    </Drawer>
-                </IconButton>
-                <Typography variant="h6" className={classes.title}>
-                    Home
+
+
+    return (
+        <div>
+            <div className={classes.root}>
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" onClick={toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="menu">
+                            <MenuIcon />
+                            <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer(['right', 'top', 'bottom'], false)}>
+                                {list('left')}
+                            </Drawer>
+                        </IconButton>
+                        <Typography variant="h6" className={classes.title}>
+                            Home
                 </Typography>
-                <Button color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
-                </Toolbar>
-            </AppBar>
-        </div>
-        <div align="center" alignItems="center" justifyContent="center" display="flex">
-            <h2>Go to Nutrition Tracker</h2>
-            <Button variant="outlined" color="primary" onClick={ () => history.push('/nutrition')}>
-            Go
+                        <Button color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
+                    </Toolbar>
+                </AppBar>
+            </div>
+            <div align="center" alignItems="center" justifyContent="center" display="flex">
+                <h2>Go to Nutrition Tracker</h2>
+                <Button variant="outlined" color="primary" onClick={() => history.push('/nutrition')}>
+                    Go
             </Button>
+            </div>
         </div>
-    </div>
-  );
+    );
 }
+
+export default ButtonAppBar;

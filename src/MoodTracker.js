@@ -1,5 +1,5 @@
 import React from "react";
-import { Planet } from "react-kawaii";
+import { Ghost, Planet } from "react-kawaii";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./MoodTracker.css";
@@ -130,6 +130,7 @@ class Welcome extends React.Component {
             mood: "happy",
             color: "#61DDBC",
             moodList: ["sad", "shocked", "happy", "blissful"],
+
             isClicked: false
         };
     }
@@ -200,11 +201,11 @@ class Welcome extends React.Component {
                                         backgroundColor: "#05386b",
                                         fontSize: "20px",
                                         borderRadius: "14px",
-                                        marginRight: "60px"
+                                        // marginRight: "60px"
                                     }}
                                 >
                                     History
-                    </MoodButton>
+                                </MoodButton>
                             </div>
                         </div>
                     </div>
