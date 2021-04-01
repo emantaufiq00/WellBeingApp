@@ -116,6 +116,9 @@ function ButtonAppBar() {
         else if (text === 'Mood') {
             history.push('/mood')
         }
+        else if (text === 'Summary') {
+            history.push('/summary')
+        }
     }
 
     const list = (anchor) => (
@@ -128,7 +131,7 @@ function ButtonAppBar() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['Home', 'Feed', 'Mood', 'Fitness'].map((text, index) => (
+                {['Home', 'Feed', 'Mood', 'Nutrition', 'Fitness', 'Summary'].map((text, index) => (
                     <ListItem button key={text} onClick={() => goToSelected(text)}>
                         <ListItemText primary={text} />
                     </ListItem>

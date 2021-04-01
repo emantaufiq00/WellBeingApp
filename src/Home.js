@@ -71,7 +71,7 @@ export function ButtonAppBar() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['Feed', 'Mood', 'Nutrition', 'Fitness', 'Summary'].map((text, index) => (
+                {['Home', 'Feed', 'Mood', 'Nutrition', 'Fitness', 'Summary'].map((text, index) => (
                     <ListItem button key={text} onClick={() => goToSelected(text)}>
                         <ListItemText primary={text} />
                     </ListItem>
@@ -102,7 +102,7 @@ export function ButtonAppBar() {
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
                             Home
-                </Typography>
+                        </Typography>
                         <Button color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
                     </Toolbar>
                 </AppBar>

@@ -70,6 +70,9 @@ function ButtonAppBar() {
         else if (text === 'Nutrition') {
             history.push('/nutrition')
         }
+        else if (text === 'Summary') {
+            history.push('/summary')
+        }
 
     }
 
@@ -83,7 +86,7 @@ function ButtonAppBar() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['Home', 'Feed', 'Nutrition', 'Fitness'].map((text, index) => (
+                {['Home', 'Feed', 'Mood', 'Nutrition', 'Fitness', 'Summary'].map((text, index) => (
                     <ListItem button key={text} onClick={() => goToSelected(text)}>
                         <ListItemText primary={text} />
                     </ListItem>
@@ -114,7 +117,7 @@ function ButtonAppBar() {
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
                             Mood Tracker
-              </Typography>
+                        </Typography>
                         <Button color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
                     </Toolbar>
                 </AppBar>
