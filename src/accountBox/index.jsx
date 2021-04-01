@@ -4,8 +4,6 @@ import { LoginForm } from "./loginForm.jsx";
 import { SignupForm } from "./signupForm.jsx";
 import { motion } from "framer-motion";
 import { AccountContext } from "./accountContent";
-import { useUser } from 'reactfire';
-import { useHistory } from 'react-router-dom';
 
 /*Iphone look alike container*/
 const BoxContainer = styled.div`
@@ -153,31 +151,31 @@ export default function AccountBox(props) {
     return (
         <AppContainer>
             <AccountContext.Provider value={contextValue}>
-            <BoxContainer>
-            <TopContainer>
-                <BackDrop
-                    initial={false}
-                    animate={isExpanded ? "expanded" : "collapsed"}
-                    variants={backdropVariants}
-                    transition={expandingTransition}
-                />
-                {active === "signin" && <HeaderContainer>
-                    <HeaderText>Welcome</HeaderText>
-                    <HeaderText>Back</HeaderText>
-                    <SmallText>Please sign-in to continue!</SmallText>
-                </HeaderContainer>}
-                {active === "signup" && <HeaderContainer>
-                    <HeaderText>Create</HeaderText>
-                    <HeaderText>Account</HeaderText>
-                    <SmallText>Please sign-up to continue!</SmallText>
-                </HeaderContainer>}
-            </TopContainer>
-            <InnerContainer>
-                {active === "signin" && <LoginForm />}
-                {active === "signup" && <SignupForm />}
-            </InnerContainer>
-        </BoxContainer>
-        </AccountContext.Provider>
-    </AppContainer>     
+                <BoxContainer>
+                    <TopContainer>
+                        <BackDrop
+                            initial={false}
+                            animate={isExpanded ? "expanded" : "collapsed"}
+                            variants={backdropVariants}
+                            transition={expandingTransition}
+                        />
+                        {active === "signin" && <HeaderContainer>
+                            <HeaderText>Welcome</HeaderText>
+                            <HeaderText>Back</HeaderText>
+                            <SmallText>Please sign-in to continue!</SmallText>
+                        </HeaderContainer>}
+                        {active === "signup" && <HeaderContainer>
+                            <HeaderText>Create</HeaderText>
+                            <HeaderText>Account</HeaderText>
+                            <SmallText>Please sign-up to continue!</SmallText>
+                        </HeaderContainer>}
+                    </TopContainer>
+                    <InnerContainer>
+                        {active === "signin" && <LoginForm />}
+                        {active === "signup" && <SignupForm />}
+                    </InnerContainer>
+                </BoxContainer>
+            </AccountContext.Provider>
+        </AppContainer>
     )
 }

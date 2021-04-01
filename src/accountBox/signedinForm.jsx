@@ -3,7 +3,7 @@ import { BoxContainer, SubmitButton } from "./common";
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContent";
 import { Router, Link } from 'react-router-dom';
-
+import { useEasybase } from 'easybase-react';
 
 
 export function SignedInForm(props) {
