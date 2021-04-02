@@ -1,11 +1,6 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable no-undef */
-import React, { useEffect, useState, Component } from 'react';
+import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 import app from './firebaseconfig';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -16,7 +11,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
@@ -25,137 +19,98 @@ import FirebaseService from './firebaseservice';
 const userAuth = app.auth().currentUser;
 
 
-class NutritionT extends Component {
-    constructor(props) {
+class AddMenu extends Component {
+    
+    emptyFood = {
+        Foodname: '',
+        Calories: ''
+      };
+    
+      constructor(props) {
         super(props);
         this.state = {
-            Food: [],
-            isLoading: true
+          item: this.emptyFood,
         };
-        this.remove = this.remove.bind(this);
-    }
+      }
     
-    componentDidMount = () => {
-        FirebaseService.getAllFood(userAuth.uid).on("value", this.onDataChange);
-    }
-
-    componentWillUnmount = () => {
+      componentWillUnmount = () => {
         FirebaseService.getAllFood(userAuth.uid).off("value", this.onDataChange);
-    }
+      }
 
-    async remove(key) {
-        FirebaseService.delete(key)
-        .then(() => {
-            let updatedFood = [...this.state.Food].filter(i => i.key !== key);
-            this.setState({Food: updatedFood});
-        });
-    }
-
-    onDataChange = (items) => {
-        console.log(items);
-        let foods = [];
-        items.forEach(item => {
-            let data = item.val();
-            foods.push({
-                key: item.key,
-                foodname: data.FoodName,
-                calories: data.Calories
-            });
-        });
+      onDataChange = (item) => {
+        let data = item.val();
+        let food = {
+          Foodname: data.foodname,
+          Calories: data.calories
+        };
     
         this.setState({
-            Food: foods,
-            isLoading: false
+          item: food,
         });
     }
 
-    ManageDialog = () => {
-        const history = useHistory();
-        const { Food } = this.state;
-        
-        console.log(this.state.Food)
-        
-        const [open, setOpen] = useState(false);
-
-    
-        const handleOpen = () => {
-            setOpen(true);
-        };
-    
-        
-        const handleClose = () => {
-            setOpen(false);
-        };
-
-        const foodList = Food.map(item => {
-            return <tr key={item.key}>
-                <td style={{whiteSpace: 'nowrap'}}>{item.foodname}</td>
-                <td>{item.calories}</td>
-            </tr>
-        });
-
-        console.log(foodList)
-    
-        return (
-            <div>
-            <Button variant="outlined" color="primary" onClick={handleOpen}>
-            View Nutrition history
-            </Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Your Nutrition History</DialogTitle>
-            <DialogContent>
-                <table>
-                    <thead>
-                        <tr>
-                            <th width="20%">Food Name</th>
-                            <th width="20%">Amount of Calories</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {foodList}
-                    </tbody>
-                </table>                 
-            </DialogContent>
-            <DialogActions><br />
-                <Button onClick={handleClose} color="primary">
-                Go Back
-                </Button>
-            </DialogActions>
-            </Dialog>                            
-            </div>
-            );
-    }
-   
     render() {
-        const { isLoading } = this.state;
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            const { foodname, calories } = e.target.elements;
+            console.log(foodname.value)
+            console.log(calories.value)
+    
+            this.state.item = {
+                Calories: calories.value,
+                FoodName: foodname.value
+            };
 
-        if (isLoading) {
-            return <p>Loading...</p>;
+            console.log(this.state.item)
+            FirebaseService.addFood(this.state.item, userAuth.uid);
         }
 
         return (
             <div>
-                <this.ManageDialog />
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                    autoFocus
+                    margin="dense"
+                    id="foodname"
+                    name="foodname"
+                    onChange={ e => e.target.value }
+                    label="Name of food"
+                    type="text"
+                    fullWidth
+                    />
+                    <TextField
+                    autoFocus
+                    margin="dense"
+                    id="calories"
+                    name="calories"
+                    onChange={ e => e.target.value }
+                    label="Number of calories"
+                    type="text"
+                    fullWidth
+                    />
+                    <Button color="primary" type="submit">
+                    Add Information
+                    </Button>
+                </form>
             </div>
         );
     }
+
 }
 
-export default function showNutrition() {
+export default function AddFood() {
     const history = useHistory();
 
     return (
         <div>
             <ButtonAppBar /><br />
-            <div align="center" alignItems="center" justifyContent="center" display="flex"><br />
-                <h2>Nutrition Tracker</h2>
-                <Button variant="outlined" color="primary" onClick={ () => history.push('/addfood') }>
-                    Add Information
-                </Button>
-                <NutritionT />
-            </div>
+            <h4>Enter New Details</h4>
+            <AddMenu />
+            <Button variant="outlined" color="primary" onClick={ () => history.push('/nutrition') }>
+                Go Back
+            </Button>
         </div>
-    );
+    )
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -176,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function ButtonAppBar() {
+  function ButtonAppBar() {
     const classes = useStyles();
     const history = useHistory();
     const [state, setState] = React.useState({
@@ -249,4 +204,6 @@ function ButtonAppBar() {
         </div>
     );
 }
+
+
 

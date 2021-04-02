@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import app from './firebaseconfig';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
@@ -15,26 +19,96 @@ import ListItemText from '@material-ui/core/ListItemText';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import { useHistory } from 'react-router-dom';
+import FirebaseService from './firebaseservice';
+
+const userAuth = app.auth().currentUser;
+console.log(userAuth);
+export default class UserInformation extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            Info: {
+            FirstName: "",
+            LastName: "",
+            Email: "",
+            EmpID: "",
+            EmpDept: ""
+        },
+        isLoading: true
+    }
+    }
+
+    componentDidMount = () => {
+        FirebaseService.getAllInfo(userAuth.uid).on("value", this.onDataChange);
+    }
+
+    componentWillUnmount = () => {
+        this.setState({isLoading: true});
+        FirebaseService.getAllInfo(userAuth.uid).on("value", this.onDataChange);
+
+    }
+
+    onDataChange = (item) => {
+        console.log(item);
+        let data = item.val();
+        let info = {
+            FirstName: data.FirstName,
+            LastName: data.LastName,
+            Email: data.Email,
+            EmpID: data.EmpID,
+            EmpDept: data.EmpDept
+        };
+    
+        this.setState({
+            Info: info,
+            isLoading: false
+        });
+
+        console.log(this.state.Info);
+    }
+
+    render() {
+        const { isLoading } = this.state;
+
+        if (isLoading) {
+            return <p>Loading...</p>;
+        }
+        return (
+            <div>
+                <ButtonAppBar /><br />
+                <h4>Your Information</h4>
+                <p>First Name: {this.state.Info.FirstName}</p>
+                <p>Last Name: {this.state.Info.LastName}</p>
+                <p>Email Address: {this.state.Info.Email}</p>
+                <p>FDM Employee ID: {this.state.Info.EmpID}</p>
+                <p>FDM Department: {this.state.Info.EmpDept}</p>
+                <Button variant="outlined" color="primary">
+                    Edit your Information
+                </Button>
+            </div>
+        )
+    }
+}
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-  list: {
-    width: 250,
-  },
-  fullList: {
-  width: 'auto',
-  },
-}));
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+    list: {
+        width: 250,
+    },
+    fullList: {
+    width: 'auto',
+    },
+  }));
 
-export default function ButtonAppBar() {
+function ButtonAppBar() {
     const classes = useStyles();
     const history = useHistory();
     const [state, setState] = React.useState({
@@ -53,14 +127,11 @@ export default function ButtonAppBar() {
         if (text === 'Home') {
             history.push('/')
         }
-        else if (text === 'Mood') {
-            history.push('/mood')
-        }
-        else if (text === 'Information') {
-            history.push('/information')
-        }
         else if (text === 'Nutrition') {
             history.push('/nutrition')
+        }
+        else if (text === 'Mood') {
+            history.push('/mood')
         }
     }
     
@@ -74,7 +145,7 @@ export default function ButtonAppBar() {
         onKeyDown={toggleDrawer(anchor, false)}
         >
         <List>
-            {['Feed', 'Nutrition', 'Mood', 'Fitness'].map((text, index) => (
+            {['Home', 'Feed', 'Mood', 'Fitness'].map((text, index) => (
             <ListItem button key={text} onClick={ () => goToSelected(text)}>
                 <ListItemText primary={text} />
             </ListItem>
@@ -82,7 +153,7 @@ export default function ButtonAppBar() {
         </List>
         <Divider />
         <List>
-            {['Information', 'Settings'].map((text, index) => (
+            {['Settings'].map((text, index) => (
             <ListItem button key={text} onClick={ () => goToSelected(text)}>
                 <ListItemText primary={text} />
             </ListItem>
@@ -102,7 +173,7 @@ export default function ButtonAppBar() {
                     </Drawer>
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
-                Nutrition Tracker
+                Information
                 </Typography>
                 <Button color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
             </Toolbar>

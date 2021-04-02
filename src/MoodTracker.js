@@ -20,6 +20,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
+import FirebaseService from './firebaseservice';
 
 
 const KawaiiContainer = styled.section`
@@ -70,6 +71,9 @@ function ButtonAppBar() {
       else if (text === 'Nutrition') {
           history.push('/nutrition')
       }
+      else if (text === 'Information') {
+          history.push('/information')
+      }
       
   }
   
@@ -91,7 +95,7 @@ function ButtonAppBar() {
       </List>
       <Divider />
       <List>
-          {['Settings'].map((text, index) => (
+          {['Information', 'Settings'].map((text, index) => (
           <ListItem button key={text}>
               <ListItemText primary={text} />
           </ListItem>
@@ -123,6 +127,8 @@ return (
 );
 }
 
+const userAuth = app.auth().currentUser;
+
 class Welcome extends React.Component {
   constructor(props) {
     super(props);
@@ -130,9 +136,36 @@ class Welcome extends React.Component {
       mood: "happy",
       color: "#61DDBC",
       moodList: ["sad", "shocked", "happy", "blissful"],
-      isClicked: false
+      moodhistory: [],
+      isClicked: false,
+      isLoading: true
     };
   }
+
+    componentDidMount = () => {
+        FirebaseService.getAllMood(userAuth.uid).on("value", this.onDataChange);
+    }
+
+    componentWillUnmount = () => {
+        FirebaseService.getAllMood(userAuth.uid).off("value", this.onDataChange);
+    }
+
+    onDataChange = (items) => {
+        console.log(items);
+        let moods = [];
+        items.forEach(item => {
+            let data = item.val();
+            moods.push({
+                key: item.key,
+                emotion: data.Emotion
+            });
+        });
+    
+        this.setState({
+            moodhistory: moods,
+            isLoading: false
+        });
+    }
 
   clickeds = () => {
     this.setState({ isClicked: true });
@@ -143,6 +176,12 @@ class Welcome extends React.Component {
   };
 
   render() {
+    const { moodhistory } = this.state
+    const moodList = moodhistory.map(item => {
+        return <tr key={item.key}>
+            <td style={{whiteSpace: 'nowrap'}}>{item.emotion}</td>
+        </tr>
+    });
     return (
         <div
             className="moodTracker-block"
@@ -187,6 +226,16 @@ class Welcome extends React.Component {
                         Back
                     </MoodButton>{" "}
                     <br />
+                    <table>
+                        <thead>
+                            <th>
+                                <tr width="20%">Moods</tr>
+                            </th>
+                        </thead>
+                        <tbody>
+                            {moodList}
+                        </tbody>
+                    </table>
                     </div>
                 </div>
 

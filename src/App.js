@@ -5,8 +5,10 @@ import PrivateRoute from './PrivateRoute';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from './Home'
 import AccountBox from './accountBox/index';
-import NutritionT from './nutrition'
+import showNutrition from './nutrition'
 import Mood from './MoodTracker'
+import AddFood from './addFood'
+import UserInformation from './userinformation'
 
 
 
@@ -16,8 +18,10 @@ function App() {
       <Router>
          <div>
            <PrivateRoute exact path="/" component={Home} />
-           <PrivateRoute exact path="/nutrition" component={NutritionT} />
+           <PrivateRoute exact path="/nutrition" component={showNutrition} />
            <PrivateRoute exact path="/mood" component={Mood} />
+           <PrivateRoute exact path="/addfood" component={AddFood} />
+           <PrivateRoute exact path="/information" component={UserInformation} />
            <Route exact path="/login" component={AccountBox} />
         </div>
       </Router>
