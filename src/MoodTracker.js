@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React from "react";
 import { Planet } from "react-kawaii";
 import styled from "styled-components";
@@ -127,13 +128,16 @@ return (
 );
 }
 
-const userAuth = app.auth().currentUser;
+let userAuth = app.auth().currentUser;
 
 class Welcome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mood: "happy",
+      mood: {
+          Emotion: "",
+          Time: ""
+      },
       color: "#61DDBC",
       moodList: ["sad", "shocked", "happy", "blissful"],
       moodhistory: [],
@@ -143,11 +147,39 @@ class Welcome extends React.Component {
   }
 
     componentDidMount = () => {
-        FirebaseService.getAllMood(userAuth.uid).on("value", this.onDataChange);
+        app.auth().onAuthStateChanged((user) => {
+			if (user) {
+				console.log("User is logged in")
+                userAuth = user
+                console.log(userAuth)
+                FirebaseService.getAllMood(userAuth.uid).on("value", this.onDataChange);
+
+			} else {
+                console.log("User not logged in")
+			}
+            
+		});
+        if (this.state.isLoading === true && userAuth !== null) {
+            this.setState({ isLoading: false })
+        }
+        console.log(userAuth.uid)
     }
 
     componentWillUnmount = () => {
-        FirebaseService.getAllMood(userAuth.uid).off("value", this.onDataChange);
+        app.auth().onAuthStateChanged((user) => {
+			if (user) {
+				console.log("User is logged in")
+                userAuth = user
+                console.log(userAuth)
+                FirebaseService.getAllMood(userAuth.uid).off("value", this.onDataChange);
+
+			} else {
+                console.log("User not logged in")
+			}
+            
+		});
+
+        console.log(userAuth.uid)    
     }
 
     onDataChange = (items) => {
@@ -176,12 +208,26 @@ class Welcome extends React.Component {
   };
 
   render() {
-    const { moodhistory } = this.state
+    const { moodhistory, isLoading } = this.state
     const moodList = moodhistory.map(item => {
         return <tr key={item.key}>
             <td style={{whiteSpace: 'nowrap'}}>{item.emotion}</td>
         </tr>
     });
+
+    const handleSubmit = async() => {
+        if (this.state.Mood.Emotion === "") {
+            return <p>Please select a mood</p>
+        } else {
+            this.setState({ mood: { Time: app.database().ServerValue.TIMESTAMP }})
+            FirebaseService.addMood(this.state.Mood, userAuth.uid);
+        }
+        
+    }
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
     return (
         <div
             className="moodTracker-block"
@@ -244,6 +290,19 @@ class Welcome extends React.Component {
                     className={this.state.isClicked ? "notShow" : "show"}
                     onClick={this.clickeds}
                     >
+                    <form onSubmit={handleSubmit}>
+                    <MoodButton
+                        style={{
+                        backgroundColor: "#05386b",
+                        fontSize: "20px",
+                        borderRadius: "14px",
+                        marginRight: "60px"
+                        }}
+                        type="submit"
+                    >
+                        Submit Mood
+                    </MoodButton>
+                    </form>
                     <MoodButton
                         style={{
                         backgroundColor: "#05386b",

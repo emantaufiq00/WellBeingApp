@@ -16,7 +16,7 @@ import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import { useHistory } from 'react-router-dom';
 import FirebaseService from './firebaseservice';
-const userAuth = app.auth().currentUser;
+let userAuth = app.auth().currentUser;
 
 
 class AddMenu extends Component {
@@ -32,10 +32,20 @@ class AddMenu extends Component {
           item: this.emptyFood,
         };
       }
-    
-      componentWillUnmount = () => {
-        FirebaseService.getAllFood(userAuth.uid).off("value", this.onDataChange);
-      }
+
+    componentWillUnmount = () => {
+        app.auth().onAuthStateChanged((user) => {
+			if (user) {
+				console.log("User is logged in")
+                userAuth = user
+                console.log(userAuth)
+                FirebaseService.getAllFood(userAuth.uid).off("value", this.onDataChange);
+
+			} else {
+                console.log("User not logged in")
+			}
+		});
+    }
 
       onDataChange = (item) => {
         let data = item.val();
@@ -150,6 +160,9 @@ const useStyles = makeStyles((theme) => ({
         if (text === 'Home') {
             history.push('/')
         }
+        else if (text === 'Fitness') {
+            history.push('/fitness')
+        }
         else if (text === 'Mood') {
             history.push('/mood')
         }
@@ -168,7 +181,7 @@ const useStyles = makeStyles((theme) => ({
         onKeyDown={toggleDrawer(anchor, false)}
         >
         <List>
-            {['Home', 'Feed', 'Mood', 'Fitness'].map((text, index) => (
+            {['Home', 'Feed', 'Fitness', 'Mood'].map((text, index) => (
             <ListItem button key={text} onClick={ () => goToSelected(text)}>
                 <ListItemText primary={text} />
             </ListItem>

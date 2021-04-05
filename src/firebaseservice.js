@@ -65,24 +65,44 @@ class FirebaseService {
         return dbInfo.child(key).update(value);
     }
 
-    addMood = (food, id) => {
-        const dbFood = app.database().ref("/Users/" + id + "/Mood");
-        dbFood.push(food);
+    addMood = (mood, id) => {
+        const dbMood = app.database().ref("/Users/" + id + "/Mood");
+        dbMood.push(mood);
     }
 
     getAllMood(id) {
-        const dbFood = app.database().ref("/Users/" + id + "/Mood");
-        return dbFood;
+        const dbMood = app.database().ref("/Users/" + id + "/Mood");
+        return dbMood;
     }
 
     getMood(key, id) {
-        const dbFood = app.database().ref("/Users/" + id + "/Mood");
-        return dbFood.child(key);
+        const dbMood = app.database().ref("/Users/" + id + "/Mood");
+        return dbMood.child(key);
     }
 
     updateMood(key, value, id) {
-        const dbFood = app.database().ref("/Users/" + id + "/Mood");
-        return dbFood.child(key).update(value);
+        const dbMood = app.database().ref("/Users/" + id + "/Mood");
+        return dbMood.child(key).update(value);
+    }
+
+    addFitness = (fitness, id) => {
+        const dbFitness = app.database().ref("/Users/" + id + "/Mood");
+        dbFitness.push(fitness);
+    }
+
+    getAllFitness(id) {
+        const dbFitness = app.database().ref("/Users/" + id + "/Mood");
+        return dbFitness;
+    }
+
+    getFitness(key, id) {
+        const dbFitness = app.database().ref("/Users/" + id + "/Mood");
+        return dbFitness.child(key);
+    }
+
+    updateFitness(key, value, id) {
+        const dbFitness = app.database().ref("/Users/" + id + "/Mood");
+        return dbFitness.child(key).update(value);
     }
 
     

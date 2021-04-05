@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState, Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -20,99 +20,90 @@ import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import { useHistory } from 'react-router-dom';
 import FirebaseService from './firebaseservice';
+import './formstyle.css'
+import Bike from './bikese.png'
 
-let userAuth = app.auth().currentUser;
-console.log(userAuth);
-export default class UserInformation extends Component {
+ class Fitness extends Component {
+
     constructor(props) {
-        super(props);
-        this.state = {
-            Info: {
-            FirstName: "",
-            LastName: "",
-            Email: "",
-            EmpID: "",
-            EmpDept: ""
-        },
-        isLoading: true
-    }
-    }
-
-    componentDidMount = () => {
-        app.auth().onAuthStateChanged((user) => {
-			if (user) {
-				console.log("User is logged in")
-                userAuth = user
-                console.log(userAuth)
-                FirebaseService.getAllInfo(userAuth.uid).on("value", this.onDataChange);
-
-			} else {
-                console.log("User not logged in")
-			}
-		});
-        if (this.state.isLoading === true) {            
-            this.setState({ isLoading: false })
-        }
-        console.log(userAuth.uid)
-    }
-
-    componentWillUnmount = () => {
-        app.auth().onAuthStateChanged((user) => {
-			if (user) {
-				console.log("User is logged in")
-                userAuth = user
-                console.log(userAuth)
-                FirebaseService.getAllInfo(userAuth.uid).on("value", this.onDataChange);
-
-			} else {
-                console.log("User not logged in")
-			}
-		});
-        if (this.state.isLoading === true) {            
-            this.setState({ isLoading: false })
-        }
-        console.log(userAuth.uid)    
-    }
-
-    onDataChange = (item) => {
-        console.log(item);
-        let data = item.val();
-        let info = {
-            FirstName: data.FirstName,
-            LastName: data.LastName,
-            Email: data.Email,
-            EmpID: data.EmpID,
-            EmpDept: data.EmpDept
-        };
+        super(props)
     
-        this.setState({
-            Info: info,
-            isLoading: false
-        });
-
-        console.log(this.state.Info);
+        this.state = {
+             exercisetype: '',
+             caloriesburnt: null,
+             difficulty: ''
+        }
     }
+    handleExerciseTypeChange = event => {
+        this.setState ({
+            exercisetype: event.target.value
+        })
+    }
+
+
+    handleCaloriesBurntChange = event => {
+        this.setState ({
+            caloriesburnt: event.target.value
+        })
+    }
+
+    handleDifficultyChange = event => {
+        this.setState ({
+            difficulty: event.target.value
+        })
+    }
+    
+    
+    handleSubmit = event => {
+        alert(`${this.state.exercisetype} ${this.state.caloriesburnt} ${this.state.difficulty}`)
+        event.preventDefault()
+    }
+    
+
 
     render() {
-        const { isLoading } = this.state;
-
-        if (isLoading) {
-            return <p>Loading...</p>;
-        }
+            const {exercisetype, caloriesburnt, difficulty} = this.state;
         return (
             <div>
-                <ButtonAppBar /><br />
-                <h4>Your Information</h4>
-                <p>First Name: {this.state.Info.FirstName}</p>
-                <p>Last Name: {this.state.Info.LastName}</p>
-                <p>Email Address: {this.state.Info.Email}</p>
-                <p>FDM Employee ID: {this.state.Info.EmpID}</p>
-                <p>FDM Department: {this.state.Info.EmpDept}</p>
-                <Button variant="outlined" color="primary">
-                    Edit your Information
-                </Button>
+                <div>
+                <ButtonAppBar />
+                </div><br />
+                <body className = 'back' >
+                    <form onSubmit={this.handleSubmit}> 
+                        <h3 className= 'fithead'>Welcome to Fitness Tracker </h3> 
+                        <img src={Bike} alt="Bike"/> 
+                            <div className = 'type'>
+                                <label>Type of exercise: </label>
+                                <input type="text" 
+                                    value ={exercisetype}
+                                    onChange ={this.handleExerciseTypeChange}
+                                    placeholder = "Enter name" />
+                            </div>
+                            <div className = 'kcal'>
+                                <label>Calories burnt: </label>
+                                <input type="number" min="0"
+                                value ={caloriesburnt}
+                                onChange ={this.handleCaloriesBurntChange}
+                                placeholder = "Total calories burnt"
+                                />
+                            </div>
+                            <div className = 'diff'>
+                            <label>Difficulty level: </label>
+                            <select value ={difficulty} 
+                            onChange={this.handleDifficultyChange}>
+                                <option value="" disabled selected>Select the difficulty</option>
+                                <option value="very easy">Very Easy</option>
+                                <option value="easy">Easy</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="hard">Hard</option>
+                                <option value="very hard">Very hard</option>
+                            </select>
+                            </div>
+                            <button type= 'submit'>Submit Exercise</button>
+                    </form> 
+                </body>
             </div>
-        )
+            )
     }
 }
 
@@ -153,11 +144,14 @@ function ButtonAppBar() {
         if (text === 'Home') {
             history.push('/')
         }
+        else if (text === 'Mood') {
+            history.push('/mood')
+        }
         else if (text === 'Nutrition') {
             history.push('/nutrition')
         }
-        else if (text === 'Mood') {
-            history.push('/mood')
+        else if (text === 'Information') {
+            history.push('/information')
         }
     }
     
@@ -171,7 +165,7 @@ function ButtonAppBar() {
         onKeyDown={toggleDrawer(anchor, false)}
         >
         <List>
-            {['Home', 'Feed', 'Mood', 'Fitness'].map((text, index) => (
+            {['Home', 'Feed', 'Mood', 'Nutrition'].map((text, index) => (
             <ListItem button key={text} onClick={ () => goToSelected(text)}>
                 <ListItemText primary={text} />
             </ListItem>
@@ -179,7 +173,7 @@ function ButtonAppBar() {
         </List>
         <Divider />
         <List>
-            {['Settings'].map((text, index) => (
+            {['Information', 'Settings'].map((text, index) => (
             <ListItem button key={text} onClick={ () => goToSelected(text)}>
                 <ListItemText primary={text} />
             </ListItem>
@@ -199,7 +193,7 @@ function ButtonAppBar() {
                     </Drawer>
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
-                Information
+                Nutrition Tracker
                 </Typography>
                 <Button color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
             </Toolbar>
@@ -207,3 +201,5 @@ function ButtonAppBar() {
         </div>
     );
 }
+
+export default Fitness;
