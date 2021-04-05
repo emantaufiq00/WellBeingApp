@@ -50,7 +50,9 @@ class NutritionT extends Component {
         if (this.state.isLoading === true) {            
             this.setState({ isLoading: false })
         }
-        console.log(userAuth.uid)
+        if (userAuth !== null) {
+            console.log(userAuth.uid)
+        }
     }
 
     componentWillUnmount = () => {
@@ -68,7 +70,9 @@ class NutritionT extends Component {
         if (this.state.isLoading === true) {            
             this.setState({ isLoading: false })
         }
-        console.log(userAuth.uid)
+        if (userAuth !== null) {
+            console.log(userAuth.uid)
+        }
     }
 
     async remove(key) {

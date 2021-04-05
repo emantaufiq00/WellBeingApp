@@ -44,6 +44,9 @@ class AddMenu extends Component {
 			} else {
                 console.log("User not logged in")
 			}
+            if (userAuth !== null) {
+                console.log(userAuth.uid)
+            }
 		});
     }
 

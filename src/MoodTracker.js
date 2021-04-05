@@ -22,6 +22,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import FirebaseService from './firebaseservice';
+import moment from 'moment';
 
 
 const KawaiiContainer = styled.section`
@@ -138,6 +139,7 @@ class Welcome extends React.Component {
           Emotion: "",
           Time: ""
       },
+      moodemot: "",
       color: "#61DDBC",
       moodList: ["sad", "shocked", "happy", "blissful"],
       moodhistory: [],
@@ -159,10 +161,12 @@ class Welcome extends React.Component {
 			}
             
 		});
-        if (this.state.isLoading === true && userAuth !== null) {
+        if (this.state.isLoading === true) {
             this.setState({ isLoading: false })
         }
-        console.log(userAuth.uid)
+        if (userAuth !== null) {
+            console.log(userAuth.uid)
+        }
     }
 
     componentWillUnmount = () => {
@@ -178,8 +182,9 @@ class Welcome extends React.Component {
 			}
             
 		});
-
-        console.log(userAuth.uid)    
+        if (userAuth !== null) {
+            console.log(userAuth.uid)
+        }
     }
 
     onDataChange = (items) => {
@@ -189,7 +194,8 @@ class Welcome extends React.Component {
             let data = item.val();
             moods.push({
                 key: item.key,
-                emotion: data.Emotion
+                emotion: data.Emotion,
+                time: data.Time              
             });
         });
     
@@ -207,23 +213,31 @@ class Welcome extends React.Component {
     this.setState({ isClicked: false });
   };
 
+  handleSubmit = async(e) => {
+    e.preventDefault();
+    if (this.state.moodemot === "") {
+        return <p>Please select a mood</p>
+    } else {
+        const unixtime = Math.round(new Date()/1000)
+        this.state.mood = { 
+            Emotion: this.state.moodemot,
+            Time: unixtime 
+        }
+        FirebaseService.addMood(this.state.mood, userAuth.uid);
+    }
+    
+}
+
   render() {
     const { moodhistory, isLoading } = this.state
     const moodList = moodhistory.map(item => {
+        let datet = new Date(item.time*1000);
+        const format = moment(datet).format('L');
         return <tr key={item.key}>
-            <td style={{whiteSpace: 'nowrap'}}>{item.emotion}</td>
+            <td style={{whiteSpace: 'nowrap'}}>{format}</td>
+            <td>{item.emotion}</td>
         </tr>
     });
-
-    const handleSubmit = async() => {
-        if (this.state.Mood.Emotion === "") {
-            return <p>Please select a mood</p>
-        } else {
-            this.setState({ mood: { Time: app.database().ServerValue.TIMESTAMP }})
-            FirebaseService.addMood(this.state.Mood, userAuth.uid);
-        }
-        
-    }
 
     if (isLoading) {
         return <p>Loading...</p>
@@ -240,10 +254,10 @@ class Welcome extends React.Component {
                 }
                 >
                 <KawaiiContainer>
-                    <Planet mood={this.state.mood} color={this.state.color} />
+                    <Planet mood={this.state.mood.Emotion} color={this.state.color} />
                 </KawaiiContainer>
                 <br />
-
+                                  
                 {this.state.moodList.map((item, index) => (
                     <div>
                     <button
@@ -251,13 +265,28 @@ class Welcome extends React.Component {
                         className="ButtonMoods"
                         onClick={() => {
                         if (this.state.moodList.includes(item))
-                            this.setState({ mood: item });
+                            // eslint-disable-next-line react/no-direct-mutation-state
+                            this.setState({moodemot: item})
+                            console.log(this.state.mood.Emotion)
                         }}
                     >
                         {item}
                     </button>
                     </div>
                 ))}
+                <form onSubmit={this.handleSubmit}> 
+                    <MoodButton
+                            style={{
+                            backgroundColor: "#05386b",
+                            fontSize: "20px",
+                            borderRadius: "14px",
+                            marginRight: "60px"
+                            }}
+                            type="submit"
+                        >
+                            Submit Mood
+                    </MoodButton>
+                </form>
                 </div>
 
                 <div>
@@ -275,6 +304,7 @@ class Welcome extends React.Component {
                     <table>
                         <thead>
                             <th>
+                                <tr width="20%">Date</tr>
                                 <tr width="20%">Moods</tr>
                             </th>
                         </thead>
@@ -290,19 +320,6 @@ class Welcome extends React.Component {
                     className={this.state.isClicked ? "notShow" : "show"}
                     onClick={this.clickeds}
                     >
-                    <form onSubmit={handleSubmit}>
-                    <MoodButton
-                        style={{
-                        backgroundColor: "#05386b",
-                        fontSize: "20px",
-                        borderRadius: "14px",
-                        marginRight: "60px"
-                        }}
-                        type="submit"
-                    >
-                        Submit Mood
-                    </MoodButton>
-                    </form>
                     <MoodButton
                         style={{
                         backgroundColor: "#05386b",

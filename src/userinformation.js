@@ -53,7 +53,9 @@ export default class UserInformation extends Component {
         if (this.state.isLoading === true) {            
             this.setState({ isLoading: false })
         }
-        console.log(userAuth.uid)
+        if (userAuth !== null) {
+            console.log(userAuth.uid)
+        }
     }
 
     componentWillUnmount = () => {
@@ -71,7 +73,9 @@ export default class UserInformation extends Component {
         if (this.state.isLoading === true) {            
             this.setState({ isLoading: false })
         }
-        console.log(userAuth.uid)    
+        if (userAuth !== null) {
+            console.log(userAuth.uid)
+        }    
     }
 
     onDataChange = (item) => {
