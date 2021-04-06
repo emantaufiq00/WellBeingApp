@@ -1,0 +1,101 @@
+.type{
+  border: 200px; 
+  background-color:#156b5a; 
+  width: 50%;
+  margin-left: 26%;
+  border-radius: 25px;
+  margin-top: 2%; 
+  margin-bottom: 2%;
+  font-size: 240%;
+  font-family: "times";
+  
+}
+
+.kcal{
+    border: 200px; 
+    background-color:#156b5a; 
+    width: 50%;
+    margin-left: 26%; 
+    margin-top: 2%; 
+    margin-bottom: 2%;
+    border-radius: 25px;
+    font-size: 240%;
+    font-family: "times";
+}
+
+.diff{
+    border: 200px; 
+    background-color:#156b5a; 
+    width: 50%;
+    margin-left: 26%;
+    margin-top: 2%;
+    margin-bottom: 2%; 
+    border-radius: 25px;
+    font-size: 240%;
+    font-family: "times"; 
+}
+
+input[type=text] {
+    width: 29%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 105%;
+    font-family: "serif";
+    border-radius: 20px;
+  }
+
+  input[type=number] {
+    width: 29%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    margin-left: 2%;
+    box-sizing: border-box;
+    font-size: 105%;
+    font-family: "serif";
+    border-radius: 20px;
+  }
+
+  select {
+    width: 29%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 120%;
+    margin-left: 2%;
+    font-size: 105%;
+    font-family: "serif";
+    border-radius: 20px;
+  }
+
+  .fithead {
+    padding: 100px;
+    text-align: center;
+    background: #156b5a;
+    color: white;
+    font-size: 60px;
+    margin-top: 0px;
+    font-family: "Times New Roman";
+    margin-bottom: 12%;
+    
+  }
+
+  .back {
+      background-color:#1BE8A7 ;
+      height: 100%;
+      width: 100vw;
+      min-height: 100vh;
+  }
+  
+  button[type=submit] {
+    width: 20%;
+    padding: 12px 20px;
+    background-color: #DCE81B;
+    box-sizing: border-box;
+    border-radius: 20px; 
+    font-size: 180%;
+  }
+
+  img{
+      margin-top: -17%;
+  }

@@ -13,7 +13,7 @@ body {
   top: 0%;
 }
 .ButtonMoods {
-  margin: 5px;
+  margin: 8px;
   border: none;
   outline: none;
   background-color: #05386b !important;
@@ -54,4 +54,9 @@ body {
   opacity: 1;
   transition: opacity 0.5s;
   margin-top: -5em;
+}
+
+.imageContainer{
+  padding-right: 15px;
+  width: 300px;
 }
