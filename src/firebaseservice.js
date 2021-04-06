@@ -86,22 +86,22 @@ class FirebaseService {
     }
 
     addFitness = (fitness, id) => {
-        const dbFitness = app.database().ref("/Users/" + id + "/Mood");
+        const dbFitness = app.database().ref("/Users/" + id + "/Fitness");
         dbFitness.push(fitness);
     }
 
     getAllFitness(id) {
-        const dbFitness = app.database().ref("/Users/" + id + "/Mood");
+        const dbFitness = app.database().ref("/Users/" + id + "/Fitness");
         return dbFitness;
     }
 
     getFitness(key, id) {
-        const dbFitness = app.database().ref("/Users/" + id + "/Mood");
+        const dbFitness = app.database().ref("/Users/" + id + "/Fitness");
         return dbFitness.child(key);
     }
 
     updateFitness(key, value, id) {
-        const dbFitness = app.database().ref("/Users/" + id + "/Mood");
+        const dbFitness = app.database().ref("/Users/" + id + "/Fitness");
         return dbFitness.child(key).update(value);
     }
 
