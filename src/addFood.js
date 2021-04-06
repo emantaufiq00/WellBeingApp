@@ -163,6 +163,9 @@ const useStyles = makeStyles((theme) => ({
         if (text === 'Home') {
             history.push('/')
         }
+        else if (text === 'Book Appointment') {
+            history.push('/bookappointment')
+        }
         else if (text === 'Fitness') {
             history.push('/fitness')
         }
@@ -184,7 +187,7 @@ const useStyles = makeStyles((theme) => ({
         onKeyDown={toggleDrawer(anchor, false)}
         >
         <List>
-            {['Home', 'Feed', 'Fitness', 'Mood'].map((text, index) => (
+            {['Home', 'Feed', 'Fitness', 'Mood', 'Book Appointment'].map((text, index) => (
             <ListItem button key={text} onClick={ () => goToSelected(text)}>
                 <ListItemText primary={text} />
             </ListItem>

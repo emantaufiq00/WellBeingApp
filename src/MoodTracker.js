@@ -70,13 +70,18 @@ function ButtonAppBar() {
       if (text === 'Home') {
         history.push('/')
       }
+      else if (text === 'Book Appointment') {
+          history.push('/bookappointment')
+      }
+      else if (text === 'Fitness') {
+          history.push('/fitness')
+      }
       else if (text === 'Nutrition') {
           history.push('/nutrition')
       }
       else if (text === 'Information') {
           history.push('/information')
-      }
-      
+      }      
   }
   
   const list = (anchor) => (
@@ -89,7 +94,7 @@ function ButtonAppBar() {
       onKeyDown={toggleDrawer(anchor, false)}
       >
       <List>
-          {['Home', 'Feed', 'Nutrition', 'Fitness'].map((text, index) => (
+          {['Home', 'Feed', 'Fitness', 'Nutrition', 'Book Appointment'].map((text, index) => (
           <ListItem button key={text} onClick={ () => goToSelected(text)}>
               <ListItemText primary={text} />
           </ListItem>

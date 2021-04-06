@@ -50,14 +50,9 @@ class FirebaseService {
         dbInfo.push(info);
     }
 
-    getAllInfo(id) {
+    getInfo(id) {
         const dbInfo = app.database().ref("/Users/" + id + "/Info");
         return dbInfo;
-    }
-
-    getInfo(key, id) {
-        const dbInfo = app.database().ref("/Users/" + id + "/Info");
-        return dbInfo.child(key);
     }
 
     updateInfo(key, value, id) {
@@ -103,6 +98,11 @@ class FirebaseService {
     updateFitness(key, value, id) {
         const dbFitness = app.database().ref("/Users/" + id + "/Fitness");
         return dbFitness.child(key).update(value);
+    }
+
+    addApp = (appoint, date, id) => {
+        const dbApp = app.database().ref("/Appointments/" + date)
+        dbApp.push(appoint);
     }
 
     

@@ -10,6 +10,7 @@ import Mood from './MoodTracker'
 import AddFood from './addFood'
 import UserInformation from './userinformation'
 import Fitness from './fitness'
+import BookAppointment from './appointment'
 
 
 
@@ -24,6 +25,7 @@ function App() {
            <PrivateRoute exact path="/addfood" component={AddFood} />
            <PrivateRoute exact path="/fitness" component={Fitness} />
            <PrivateRoute exact path="/information" component={UserInformation} />
+           <PrivateRoute exact path="/bookappointment" component={BookAppointment} />
            <Route exact path="/login" component={AccountBox} />
         </div>
       </Router>

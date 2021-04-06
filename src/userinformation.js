@@ -44,7 +44,7 @@ export default class UserInformation extends Component {
 				console.log("User is logged in")
                 userAuth = user
                 console.log(userAuth)
-                FirebaseService.getAllInfo(userAuth.uid).on("value", this.onDataChange);
+                FirebaseService.getInfo(userAuth.uid).on("value", this.onDataChange);
 
 			} else {
                 console.log("User not logged in")
@@ -64,7 +64,7 @@ export default class UserInformation extends Component {
 				console.log("User is logged in")
                 userAuth = user
                 console.log(userAuth)
-                FirebaseService.getAllInfo(userAuth.uid).on("value", this.onDataChange);
+                FirebaseService.getInfo(userAuth.uid).on("value", this.onDataChange);
 
 			} else {
                 console.log("User not logged in")
@@ -157,6 +157,12 @@ function ButtonAppBar() {
         if (text === 'Home') {
             history.push('/')
         }
+        else if (text === 'Book Appointment') {
+            history.push('/bookappointment')
+        }
+        else if (text === 'Fitness') {
+            history.push('/fitness')
+        }
         else if (text === 'Nutrition') {
             history.push('/nutrition')
         }
@@ -175,7 +181,7 @@ function ButtonAppBar() {
         onKeyDown={toggleDrawer(anchor, false)}
         >
         <List>
-            {['Home', 'Feed', 'Mood', 'Fitness'].map((text, index) => (
+            {['Home', 'Feed', 'Fitness', 'Mood', 'Nutrition', 'Book Appointment'].map((text, index) => (
             <ListItem button key={text} onClick={ () => goToSelected(text)}>
                 <ListItemText primary={text} />
             </ListItem>

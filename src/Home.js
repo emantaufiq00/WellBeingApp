@@ -53,6 +53,9 @@ export default function ButtonAppBar() {
         if (text === 'Home') {
             history.push('/')
         }
+        else if (text === 'Book Appointment') {
+            history.push('/bookappointment')
+        }
         else if (text === 'Fitness') {
             history.push('/fitness')
         }
@@ -77,7 +80,7 @@ export default function ButtonAppBar() {
         onKeyDown={toggleDrawer(anchor, false)}
         >
         <List>
-            {['Feed', 'Fitness', 'Mood', 'Nutrition'].map((text, index) => (
+            {['Feed', 'Fitness', 'Mood', 'Nutrition', 'Book Appointment'].map((text, index) => (
             <ListItem button key={text} onClick={ () => goToSelected(text)}>
                 <ListItemText primary={text} />
             </ListItem>
