@@ -6,6 +6,7 @@
 
 
 .exerciseBox{
+margin-top: -1em;
 margin: 5px;
 border: 2px solid bisque;
 outline: none;
@@ -37,3 +38,6 @@ transition: all 0.5s ease-in-out !important;
 
 }
 
+.back{
+    margin-top: -1em;
+}

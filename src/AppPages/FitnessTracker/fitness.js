@@ -10,6 +10,17 @@ import './FitnessCSS.css'
 import Bike from './bikese.png'
 import moment from 'moment'
 import ButtonAppBar from '../Home.js'
+import {
+    ComposedChart,
+    Line,
+    Bar,
+    XAxis,
+    Legend,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    ResponsiveContainer,
+} from 'recharts';
 
 let userAuth = app.auth().currentUser;
 class Fitness extends Component {
@@ -103,6 +114,13 @@ class Fitness extends Component {
         FirebaseService.addFitness(this.state.Fitness, userAuth.uid)
     }
 
+    clickeds = () => {
+        this.setState({ isClicked: true });
+    };
+
+    back = () => {
+        this.setState({ isClicked: false });
+    };
 
 
     render() {
@@ -120,7 +138,20 @@ class Fitness extends Component {
             </tr>
         });
 
-        console.log(fitnessList)
+        console.log(fitnesshistory)
+
+        const fitnessGraph = []
+        fitnesshistory.map(item => {
+
+            return (
+                fitnessGraph.push({
+                    calories: item.calories,
+                    date: moment(new Date(item.date * 1000)).format("MMM Do")
+                })
+            )
+
+        });
+        console.log(fitnessGraph)
 
         if (isLoading === true) {
             return <p>Loading...</p>
@@ -132,7 +163,6 @@ class Fitness extends Component {
                     <h3 className='fithead'>Fitness Tracker </h3>
                 </div><br />
                 <body className='back' >
-
                     <form onSubmit={this.handleSubmit}>
                         <img src={Bike} alt="Bike" />
                         <div className="holdingDiv">
@@ -197,6 +227,82 @@ class Fitness extends Component {
                         </Button>
                         </DialogActions>
                     </Dialog>
+
+
+                    <div
+                        className={this.state.isClicked ? "boxOpened" : "boxClosed"}
+                    >
+                        <div>
+                            <button
+                                style={{
+                                    backgroundColor: "rgb(126, 166, 119)",
+                                    color: "white",
+                                    border: "none",
+                                    fontSize: "16px",
+                                    borderRadius: "5px",
+                                    padding: "5px 10px",
+                                    fontWeight: "400",
+                                    marginRight: "4.5em",
+                                    float: "left"
+                                }}
+                                onClick={this.back}
+                            >
+                                Back
+                    </button>{" "}
+                            <br />
+                            <div>
+                                <div className="pageTitle"> Fitness Summary</div>
+                                <div className="moodChart">
+                                    <ResponsiveContainer width="100%" height={400}>
+                                        <ComposedChart
+                                            width={500}
+                                            height={400}
+                                            data={fitnessGraph}
+                                            margin={{
+                                                top: 20,
+                                                right: 20,
+                                                bottom: 20,
+                                                left: 20,
+                                            }}
+                                        >
+
+                                            <CartesianGrid stroke="#e3dede" />
+                                            <XAxis dataKey="date" />
+                                            <YAxis />
+                                            <Tooltip />
+                                            <Bar dataKey="calories" barSize={20} fill=" rgb(201, 127, 127" />
+                                            <Legend />
+                                            <Line type="monotone" dataKey="calories" stroke="#ff7300" />
+                                        </ComposedChart>
+                                    </ResponsiveContainer>
+                                </div>
+
+
+                            </div >
+                        </div>
+                    </div>
+
+                    <div style={{ marginTop: "0.5em" }}>
+                        <div
+                            className={this.state.isClicked ? "notShow" : "show"}
+                            onClick={this.clickeds}
+                        >
+                            <button
+                                style={{
+                                    backgroundColor: "rgb(126, 166, 119)",
+                                    color: "white",
+                                    border: "none",
+                                    fontSize: "16px",
+                                    borderRadius: "5px",
+                                    padding: "5px 10px",
+                                    fontWeight: "400",
+                                    marginRight: "8em"
+                                }}
+                            >
+                                Summary
+                                </button>
+                        </div>
+                    </div>
                 </body>
             </div>
         )
