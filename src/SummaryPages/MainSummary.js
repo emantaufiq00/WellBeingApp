@@ -24,7 +24,7 @@ function MainSummary() {
     return (
         <div>
             <ButtonAppBar />
-            <div className="summaryTitle">Summary</div>
+            <h3 className='fithead'> Summary </h3>
             <div className="buttonHolder">
                 <div><button className="summaryButton" onClick={nutritionChange}>Nutrition</button></div>
                 <div><button className="summaryButton" onClick={fitnessChange}>Fitness</button></div>

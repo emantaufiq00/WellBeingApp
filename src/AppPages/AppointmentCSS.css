@@ -1,6 +1,6 @@
-body {
-  background-color: white;
-}
+/* body {
+  background-color: orange;
+} */
 .App {
   position: absolute;
   top: 50%;
@@ -21,3 +21,14 @@ textarea {
   height: 100px;
   resize: none;
 }
+
+
+.BookSubtitle{
+  margin-top:-5em;
+  margin-left:1.5em;
+  font-size: 25px;
+  font-weight: 300;
+  padding-bottom:0.5em;
+  width: 15em;
+}
+
