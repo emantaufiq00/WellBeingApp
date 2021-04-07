@@ -11,7 +11,20 @@ import { useHistory } from 'react-router-dom';
 import FirebaseService from '../../firebaseservice';
 import ButtonAppBar from '../Home.js'
 import './NutritionCSS.css'
+import moment from 'moment'
+import {
+    ComposedChart,
+    Line,
+    Bar,
+    XAxis,
+    Legend,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    ResponsiveContainer,
+} from 'recharts';
 let userAuth = app.auth().currentUser;
+
 
 
 
@@ -80,13 +93,18 @@ class NutritionT extends Component {
             let data = item.val();
             foods.push({
                 key: item.key,
+                date: data.Date,
                 foodname: data.FoodName,
                 calories: data.Calories
             });
         });
 
+        const newList = foods.sort((b, a) => {
+            return moment(b.date).diff(a.date)
+        });
+
         this.setState({
-            Food: foods,
+            Food: newList,
             isLoading: false
         });
     }
@@ -118,40 +136,44 @@ class NutritionT extends Component {
 
         const foodList = Food.map(item => {
             return <tr key={item.key}>
-                <td style={{ whiteSpace: 'nowrap' }}>{item.foodname}</td>
+                <td style={{ whiteSpace: 'nowrap' }}>{moment(item.date).format('DD/MM/YYYY')}</td>
+                <td>{item.foodname}</td>
                 <td>{item.calories}</td>
             </tr>
         });
 
         console.log(Food)
 
-        // const foodGraph = []
-        // Food.map(item => {
+        const foodGraph = []
+        Food.map(item => {
 
-        //     return (
-        //         foodGraph.push({
-        //             calories: item.calories,
-        //             date: moment(new Date(item.date * 1000)).format("MMM Do")
-        //         })
-        //     )
-
+            return (
+                foodGraph.push({
+                    calories: item.calories,
+                    date: moment(item.date).format("MMM Do"),
+                    food: item.foodname
+                })
+            )
+        });
+        // const newGraph = foodGraph.sort((a, b) => {
+        //    return moment(a.date).diff(b.date)
         // });
 
-        console.log(Food)
 
         console.log(foodList)
 
         return (
             <div>
-                <Button className="addButton" variant="outlined" color="primary" onClick={handleOpen}>
+                <button className="addButton" variant="outlined" color="primary" onClick={handleOpen}>
                     View Nutrition history
-            </Button>
+            </button>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Your Nutrition History</DialogTitle>
                     <DialogContent>
                         <table>
                             <thead>
                                 <tr>
+                                    <th width="20%">Date</th>
                                     <th width="20%">Food Name</th>
                                     <th width="20%">Amount of Calories</th>
                                 </tr>
@@ -167,7 +189,86 @@ class NutritionT extends Component {
                 </Button>
                     </DialogActions>
                 </Dialog>
-            </div>
+
+                <div
+                    className={this.state.isClicked ? "boxOpened" : "boxClosed"}
+                >
+                    <div>
+                        <button
+                            style={{
+                                backgroundColor: "rgb(126, 166, 119)",
+                                color: "white",
+                                border: "none",
+                                fontSize: "16px",
+                                borderRadius: "5px",
+                                padding: "5px 10px",
+                                fontWeight: "400",
+                                marginRight: "4.5em",
+                                float: "left"
+                            }}
+                            onClick={this.back}
+                        >
+                            Back
+                    </button>{" "}
+                        <br />
+                        <div>
+                            <div className="pageTitle"> Nutrition Intake Summary</div>
+                            <div className="moodChart">
+                                <ResponsiveContainer width="100%" height={400}>
+                                    <ComposedChart
+                                        width={500}
+                                        height={400}
+                                        data={foodGraph}
+                                        margin={{
+                                            top: 20,
+                                            right: 20,
+                                            bottom: 20,
+                                            left: 20,
+                                        }}
+                                    >
+
+                                        <CartesianGrid stroke="#e3dede" />
+                                        <XAxis dataKey="date" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Bar dataKey="calories" barSize={20} fill=" rgb(201, 127, 127" />
+                                        <Legend />
+                                        <Line type="monotone" dataKey="calories" stroke="#ff7300" />
+                                    </ComposedChart>
+                                </ResponsiveContainer>
+                            </div>
+
+
+                        </div >
+                    </div>
+                </div>
+
+
+                <div
+                    className={this.state.isClicked ? "notShow" : "show"}
+
+                >
+                    <button
+                        onClick={this.clickeds}
+                        style={{
+                            backgroundColor: "rgb(126, 166, 119)",
+                            position: "inline",
+                            color: "white",
+                            border: "none",
+                            fontSize: "16px",
+                            borderRadius: "5px",
+                            padding: "5px 10px",
+                            fontWeight: "400",
+                            marginLeft: "-53em"
+                        }}
+                    >
+                        Summary
+                                </button>
+                </div>
+
+
+
+            </div >
         );
     }
 
@@ -195,9 +296,9 @@ export default function showNutrition() {
             <div align="center" alignItems="center" justifyContent="center" display="flex"><br />
                 <h3 className="Nutritiontitle">Nutrition Tracker</h3>
                 <br />
-                <Button className="addButton" onClick={() => history.push('/addfood')}>
+                <button className="addButton" onClick={() => history.push('/addfood')}>
                     Add Information
-                </Button>
+                </button>
 
                 <NutritionT />
             </div>
