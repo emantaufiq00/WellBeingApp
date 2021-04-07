@@ -51,7 +51,7 @@ export function LoginForm({ history }) {
         <Marginer direction="vertical" margin={10} />
         <MutedLink href="#">Forgot your password?</MutedLink>
         <Marginer direction="vertical" margin="1em" />
-        <SubmitButton type="submit" >Signin</SubmitButton>
+        <SubmitButton type="submit" >Login</SubmitButton>
       </FormContainer>
 
       <Marginer direction="vertical" margin="1em" />

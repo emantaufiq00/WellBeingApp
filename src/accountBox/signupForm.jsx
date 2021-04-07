@@ -55,7 +55,7 @@ export function SignupForm() {
         <SubmitButton type="submit">Register</SubmitButton>
       </FormContainer>
       <Marginer direction="vertical" margin="0.2em" />
-      <MutedLink href="#">Already have an account? <BoldLink href="#" onClick={switchToSignin}>Signin</BoldLink></MutedLink>
+      <MutedLink href="#">Already have an account? <BoldLink href="#" onClick={switchToSignin}>SignIn</BoldLink></MutedLink>
     </BoxContainer>
   );
 
