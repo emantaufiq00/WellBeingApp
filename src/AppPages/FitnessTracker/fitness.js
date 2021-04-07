@@ -172,7 +172,7 @@ class Fitness extends Component {
                                 name="exercise"
                                 id="exercise"
                                 onChange={e => e.target.value}
-                                placeholder=" Enter name" required />
+                                placeholder=" Enter exercise" required />
                         </div>
                         <div className='kcal'>
                             <label className="fieldTitle">Calories Burnt : </label>

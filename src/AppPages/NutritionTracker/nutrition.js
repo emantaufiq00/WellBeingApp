@@ -123,6 +123,8 @@ class NutritionT extends Component {
             </tr>
         });
 
+        console.log(Food)
+
         // const foodGraph = []
         // Food.map(item => {
 
