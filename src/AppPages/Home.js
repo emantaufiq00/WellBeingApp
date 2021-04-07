@@ -148,25 +148,27 @@ import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import { useHistory } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
-    list: {
-        width: 250,
-    },
-    fullList: {
-        width: 'auto',
-    },
-}));
 
-export default function ButtonAppBar() {
+
+function ButtonAppBar() {
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            flexGrow: 1,
+        },
+        menuButton: {
+            marginRight: theme.spacing(2),
+        },
+        title: {
+            flexGrow: 1,
+        },
+        list: {
+            width: 250,
+        },
+        fullList: {
+            width: 'auto',
+        },
+    }));
+
     const classes = useStyles();
     const history = useHistory();
     const [state, setState] = React.useState({
@@ -243,11 +245,13 @@ export default function ButtonAppBar() {
                         </Drawer>
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Nutrition Tracker
-                </Typography>
+
+                    </Typography>
                     <Button color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
                 </Toolbar>
             </AppBar>
         </div>
     );
 }
+
+export default ButtonAppBar;

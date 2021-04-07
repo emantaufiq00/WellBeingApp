@@ -2,6 +2,7 @@
 import React from "react";
 import { useHistory } from 'react-router-dom';
 import './summary.css'
+import ButtonAppBar from '../AppPages/Home.js'
 
 
 function MainSummary() {
@@ -22,6 +23,7 @@ function MainSummary() {
 
     return (
         <div>
+            <ButtonAppBar />
             <div className="summaryTitle">Summary</div>
             <div className="buttonHolder">
                 <div><button className="summaryButton" onClick={nutritionChange}>Nutrition</button></div>
