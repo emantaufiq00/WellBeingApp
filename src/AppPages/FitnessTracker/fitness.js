@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -23,7 +23,7 @@ import {
 } from 'recharts';
 
 let userAuth = app.auth().currentUser;
-class Fitness extends PureComponent {
+class Fitness extends Component {
 
     constructor(props) {
         super(props)
@@ -81,7 +81,6 @@ class Fitness extends PureComponent {
     }
 
     onDataChange = (items) => {
-        console.log(items);
         let fitnesslist = [];
         items.forEach(item => {
             let data = item.val();
@@ -98,6 +97,8 @@ class Fitness extends PureComponent {
             fitnesshistory: fitnesslist,
             isLoading: false
         });
+
+        console.log(fitnesslist)
     }
 
     handleSubmit = async (event) => {
@@ -142,10 +143,10 @@ class Fitness extends PureComponent {
 
         let fitnessGraph = []
         fitnesshistory.map(item => {
-
+            let values = item.calories * 1
             return (
                 fitnessGraph.push({
-                    number: item.calories,
+                    burnt: values,
                     date: moment(new Date(item.date * 1000)).format("MMM Do")
                 })
             )
@@ -261,7 +262,7 @@ class Fitness extends PureComponent {
                                         height={700}
                                         data={fitnessGraph}
                                         margin={{
-                                            top: 200,
+                                            top: 20,
                                             right: 20,
                                             bottom: 20,
                                             left: 20,
@@ -269,11 +270,11 @@ class Fitness extends PureComponent {
                                     >
 
                                         <CartesianGrid stroke="#e3dede" />
-                                        <XAxis dataKey="date" />
+                                        <XAxis dataKey='date' />
                                         <YAxis />
                                         <Tooltip />
-                                        <Bar dataKey="number" barSize={20} fill="rgb(201, 127, 127" />
-                                        <Line type="monotone" dataKey="number" stroke="#ff7300" />
+                                        <Bar dataKey='burnt' barSize={20} fill="rgb(201, 127, 127" />
+                                        <Line type="monotone" dataKey="burnt" stroke="#ff7300" />
                                     </ComposedChart>
                                 </ResponsiveContainer>
                             </div>

@@ -146,11 +146,11 @@ class NutritionT extends Component {
 
         const foodGraph = []
         Food.map(item => {
+            let values = item.calories * 1
             return (
                 foodGraph.push({
-                    calories: item.calories,
+                    calories: values,
                     date: moment(item.date).format("MMM Do"),
-                    food: item.foodname
                 })
             )
         });
@@ -163,9 +163,9 @@ class NutritionT extends Component {
 
         return (
             <div>
-                <Button className="addButton" variant="outlined" color="primary" onClick={handleOpen}>
+                <button className="addButton" variant="outlined" color="primary" onClick={handleOpen}>
                     View Nutrition history
-            </Button>
+            </button>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Your Nutrition History</DialogTitle>
                     <DialogContent>
@@ -295,9 +295,9 @@ export default function showNutrition() {
             <div align="center" alignItems="center" justifyContent="center" display="flex"><br />
                 <h3 className="Nutritiontitle">Nutrition Tracker</h3>
                 <br />
-                <Button className="addButton" onClick={() => history.push('/addfood')}>
+                <button className="addButton" onClick={() => history.push('/addfood')}>
                     Add Information
-                </Button>
+                </button>
 
                 <NutritionT />
             </div>
