@@ -109,7 +109,7 @@ export default class BookAppointment extends React.Component {
             <br />
             <div className={this.checkData()}>
               <textarea name="reason" id="reason" placeholder="Type something" onChange={e => e.target.value} /> <br />
-              <button type="submit">Make appointment </button>
+              <button className="bookButton" type="submit">Make appointment </button>
             </div>
           </form>
         </div>

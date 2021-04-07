@@ -120,7 +120,7 @@ class NutritionT extends Component {
 
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={handleOpen}>
+                <Button className="addButton" variant="outlined" color="primary" onClick={handleOpen}>
                     View Nutrition history
             </Button>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -172,7 +172,7 @@ export default function showNutrition() {
             <div align="center" alignItems="center" justifyContent="center" display="flex"><br />
                 <h3 className="Nutritiontitle">Nutrition Tracker</h3>
                 <br />
-                <Button className="addButton" variant="outlined" color="primary" onClick={() => history.push('/addfood')}>
+                <Button className="addButton" onClick={() => history.push('/addfood')}>
                     Add Information
                 </Button>
 

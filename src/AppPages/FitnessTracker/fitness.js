@@ -135,28 +135,32 @@ class Fitness extends Component {
 
                     <form onSubmit={this.handleSubmit}>
                         <img src={Bike} alt="Bike" />
-                        <div className='type'>
-                            <label>Type of exercise: </label>
+                        <div className="holdingDiv">
+                            <label className="fieldTitle">Exercise Type :  </label>
                             <input type="text"
+                                className="exerciseBox"
                                 name="exercise"
                                 id="exercise"
                                 onChange={e => e.target.value}
-                                placeholder="Enter name" />
+                                placeholder=" Enter name" required />
                         </div>
                         <div className='kcal'>
-                            <label>Calories burnt: </label>
+                            <label className="fieldTitle">Calories Burnt : </label>
                             <input type="number" min="0"
+                                className="exerciseBox"
                                 name="calories"
                                 id="calories"
                                 onChange={e => e.target.value}
                                 placeholder="Total calories burnt"
+                                required
                             />
                         </div>
                         <div className='diff'>
-                            <label>Difficulty level: </label>
+                            <label className="fieldTitle">Difficulty Level : </label>
                             <select name="difficulty"
+                                className="exerciseBox"
                                 id="difficulty"
-                                onChange={e => e.target.value}>
+                                onChange={e => e.target.value} required>
                                 <option value="" disabled selected>Select the difficulty</option>
                                 <option value="very easy">Very Easy</option>
                                 <option value="easy">Easy</option>
@@ -165,9 +169,9 @@ class Fitness extends Component {
                                 <option value="very hard">Very hard</option>
                             </select>
                         </div>
-                        <button type='submit'>Submit Exercise</button>
+                        <button className="fitButton" type='submit'>Submit Exercise</button>
                     </form>
-                    <button onClick={() => this.setState({ open: true })}>
+                    <button className="fitButton" onClick={() => this.setState({ open: true })}>
                         View Exercise History
                     </button>
                     <Dialog open={this.state.open} onClose={() => this.setState({ open: false })} aria-labelledby="form-dialog-title">
