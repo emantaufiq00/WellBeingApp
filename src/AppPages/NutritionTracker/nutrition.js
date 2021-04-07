@@ -164,9 +164,9 @@ class NutritionT extends Component {
 
         return (
             <div>
-                <button className="addButton" variant="outlined" color="primary" onClick={handleOpen}>
+                <Button className="addButton" variant="outlined" color="primary" onClick={handleOpen}>
                     View Nutrition history
-            </button>
+            </Button>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Your Nutrition History</DialogTitle>
                     <DialogContent>
@@ -231,7 +231,7 @@ class NutritionT extends Component {
                                         <XAxis dataKey="date" />
                                         <YAxis />
                                         <Tooltip />
-                                        <Bar dataKey="calories" barSize={20} fill=" rgb(201, 127, 127" />
+                                        <Bar dataKey="calories" barSize={20} fill=" rgb(201, 127, 127)" />
                                         <Legend />
                                         <Line type="monotone" dataKey="calories" stroke="#ff7300" />
                                     </ComposedChart>
@@ -296,9 +296,9 @@ export default function showNutrition() {
             <div align="center" alignItems="center" justifyContent="center" display="flex"><br />
                 <h3 className="Nutritiontitle">Nutrition Tracker</h3>
                 <br />
-                <button className="addButton" onClick={() => history.push('/addfood')}>
+                <Button className="addButton" onClick={() => history.push('/addfood')}>
                     Add Information
-                </button>
+                </Button>
 
                 <NutritionT />
             </div>

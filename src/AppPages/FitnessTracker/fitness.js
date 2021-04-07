@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -15,15 +15,15 @@ import {
     Line,
     Bar,
     XAxis,
-    Legend,
     YAxis,
     CartesianGrid,
     Tooltip,
+    Legend,
     ResponsiveContainer,
 } from 'recharts';
 
 let userAuth = app.auth().currentUser;
-class Fitness extends Component {
+class Fitness extends PureComponent {
 
     constructor(props) {
         super(props)
@@ -151,6 +151,8 @@ class Fitness extends Component {
             )
 
         });
+
+
         console.log(fitnessGraph)
 
         if (isLoading === true) {
@@ -265,13 +267,11 @@ class Fitness extends Component {
                                                 left: 20,
                                             }}
                                         >
-
-                                            <CartesianGrid stroke="#e3dede" />
+                                            <CartesianGrid stroke="#f5f5f5" />
                                             <XAxis dataKey="date" />
                                             <YAxis />
                                             <Tooltip />
-                                            <Bar dataKey="calories" barSize={20} fill=" rgb(201, 127, 127" />
-                                            <Legend />
+                                            <Bar dataKey="calories" barSize={20} fill=" rgb(201, 127, 127)" />
                                             <Line type="monotone" dataKey="calories" stroke="#ff7300" />
                                         </ComposedChart>
                                     </ResponsiveContainer>

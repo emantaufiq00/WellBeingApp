@@ -22,6 +22,7 @@ let userAuth = app.auth().currentUser;
 class AddMenu extends Component {
 
     emptyFood = {
+        Date: '',
         Foodname: '',
         Calories: ''
     };
@@ -53,6 +54,7 @@ class AddMenu extends Component {
     onDataChange = (item) => {
         let data = item.val();
         let food = {
+            Date: data.date,
             Foodname: data.foodname,
             Calories: data.calories
         };
@@ -65,12 +67,14 @@ class AddMenu extends Component {
     render() {
         const handleSubmit = async (e) => {
             e.preventDefault();
-            const { foodname, calories } = e.target.elements;
+            const { date, foodname, calories } = e.target.elements;
+            console.log(date.value)
             console.log(foodname.value)
             console.log(calories.value)
 
             this.state.item = {
                 Calories: calories.value,
+                Date: date.value,
                 FoodName: foodname.value
             };
 
@@ -81,6 +85,17 @@ class AddMenu extends Component {
         return (
             <div>
                 <form onSubmit={handleSubmit}>
+                    <label for="start">Date:   </label>
+                    <input
+                        className="textBox"
+                        type="date"
+                        name="date"
+                        id="date"
+                        min="2018-01-01"
+                        onChange={e => e.target.value}
+                    />{" "}
+                    <br />
+                    <br />
                     <TextField
                         autoFocus
                         margin="dense"

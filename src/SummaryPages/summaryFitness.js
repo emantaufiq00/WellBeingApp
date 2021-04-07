@@ -20,7 +20,7 @@ const data = [
     { value: 1300, Date: 40 },
     { value: 2000, Date: 20 },
     { value: 2500, Date: 30 },
-    { value: 2200, Date: 40 },
+    { value: 10000, Date: 40 },
 ];
 
 
