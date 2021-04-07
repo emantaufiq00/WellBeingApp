@@ -1,0 +1,49 @@
+/* body {
+  background-color: orange;
+} */
+.App {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.show {
+  display: block;
+}
+.hide {
+  visibility: hidden;
+  display: none;
+}
+textarea {
+  font-size: 16px;
+  width: 400px;
+  padding: 10px;
+  height: 100px;
+  resize: none;
+}
+
+
+.BookSubtitle{
+  margin-top:-5em;
+  margin-left:1.5em;
+  font-size: 25px;
+  font-weight: 300;
+  padding-bottom:0.5em;
+  width: 15em;
+}
+
+.bookButton{
+  margin: 8px;
+  border: none;
+  outline: none;
+  background-color: #05386b !important;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 15px;
+  font-weight: 400;
+  transition: all 0.5s ease-in-out;
+}
+
+.textBox{
+  border-radius: 5px;
+}

@@ -1,0 +1,55 @@
+.summaryButton{
+    margin: 5px;
+  border: none;
+  outline: none;
+  background-color: #05386b !important;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 15px;
+  transition: all 0.5s ease-in-out;
+  position: inline-block;
+  
+}
+.summaryButton:hover {
+    background: #edf5e1 !important;
+    color: black;
+  }
+
+.summaryTitle{
+    margin-top:-5em;
+   margin-left:-2.85em;
+  font-size: 25px;
+  font-weight: 300;
+  color: white;
+  padding-bottom:0.5em;
+  width: 14em;
+}
+
+.buttonHolder{
+    padding-top:1em;
+}
+
+.moodChart{
+
+  width: 100%;
+  height: 100%;
+
+}
+
+.pageTitle{
+  font-size: 30px;
+    font-weight: 600;
+    line-height: 1.24;
+    color: black;
+    z-index: 10;
+    margin: 0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  background-color:beige !important;
+}
+
+

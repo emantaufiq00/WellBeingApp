@@ -24,7 +24,7 @@ class FirebaseService {
             console.log(error.message)
         });
     }
-    
+
     addFood = (food, id) => {
         const dbFood = app.database().ref("/Users/" + id + "/Food");
         dbFood.push(food);
@@ -105,6 +105,6 @@ class FirebaseService {
         dbApp.push(appoint);
     }
 
-    
+
 }
 export default new FirebaseService();

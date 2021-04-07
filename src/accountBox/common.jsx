@@ -13,8 +13,11 @@ export const FormContainer = styled.form`
     width: 100%;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 2.5px rgba(15,15,15,0.19);
+    /* box-shadow: 0 0 2.5px rgba(15,15,15,0.19); */
 `;
+
+
+
 
 export const MutedLink = styled.a`
     font-size:11px;
@@ -36,6 +39,7 @@ export const Input = styled.input`
     height: 42px;
     outline: none;
     border: 1px solid rgba(200,200,200,0.3);
+    box-shadow: 0 0 2.5px rgba(15,15,15,0.19);
     padding: 0px 10px;
     border-bottom: 1.4px solid transparent;
     transition: all 200ms ease-in-out;

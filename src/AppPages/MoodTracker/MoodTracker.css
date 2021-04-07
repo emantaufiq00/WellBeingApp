@@ -1,9 +1,4 @@
-body {
-  padding: 0;
-  margin: 0;
-  background: #5cdb95;
-  text-align: center;
-}
+
 .moodTracker-block {
   width: 100vw;
   height: 100vh;
@@ -14,16 +9,19 @@ body {
   top: 0%;
 }
 .ButtonMoods {
-  margin: 2px;
+  margin: 8px;
   border: none;
   outline: none;
   background-color: #05386b !important;
+  color: white;
   border-radius: 5px;
   padding: 5px 15px;
+  font-weight: 400;
   transition: all 0.5s ease-in-out;
 }
 .ButtonMoods:hover {
   background: #edf5e1 !important;
+  color: black;
 }
 .show {
   visibility: visible;
@@ -44,7 +42,7 @@ body {
   width: 99.5vw;
   height: 100vh;
   transition: opacity 0.5s;
-  background-color: #8ee4af;
+  background-color:beige;
 }
 .hideEmotion {
   opacity: 0;
@@ -53,4 +51,29 @@ body {
   opacity: 1;
   transition: opacity 0.5s;
   margin-top: -5em;
+  
+}
+
+.imageContainer{
+  padding-right: 12em;
+  width: 700px;
+  /* border-style: dashed */
+}
+.MoodTitle{
+  margin-top:1em;
+  color: white;
+
+}
+
+.MoodSubtitle{
+  margin-top:-5em;
+  margin-left:-2.85em;
+  font-size: 25px;
+  font-weight: 300;
+  padding-bottom:0.5em;
+  width: 14em;
+}
+
+.pageTitle{
+  padding-bottom:4em;
 }
