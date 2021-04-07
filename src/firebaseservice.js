@@ -20,9 +20,6 @@ class FirebaseService {
         app.database().ref("/Users/" + id + "/Info").set(user).catch(error => {
             console.log(error.message)
         });
-        app.database().ref("/Users/" + id + "/Food").set(this.state.emptyFood).catch(error => {
-            console.log(error.message)
-        });
     }
 
     addFood = (food, id) => {

@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 import FirebaseService from '../../firebaseservice';
 import ButtonAppBar from '../Home.js'
 import './NutritionCSS.css'
+import moment from 'moment'
 let userAuth = app.auth().currentUser;
 
 
@@ -80,13 +81,18 @@ class NutritionT extends Component {
             let data = item.val();
             foods.push({
                 key: item.key,
+                date: data.Date,
                 foodname: data.FoodName,
                 calories: data.Calories
             });
         });
 
+        const newList = foods.sort((b, a) => {
+            return moment(b.date).diff(a.date)
+        });
+
         this.setState({
-            Food: foods,
+            Food: newList,
             isLoading: false
         });
     }
@@ -118,26 +124,28 @@ class NutritionT extends Component {
 
         const foodList = Food.map(item => {
             return <tr key={item.key}>
-                <td style={{ whiteSpace: 'nowrap' }}>{item.foodname}</td>
+                <td style={{ whiteSpace: 'nowrap' }}>{moment(item.date).format('DD/MM/YYYY')}</td>
+                <td>{item.foodname}</td>
                 <td>{item.calories}</td>
             </tr>
         });
 
         console.log(Food)
 
-        // const foodGraph = []
-        // Food.map(item => {
+        //const foodGraph = []
+        //Food.map(item => {
 
-        //     return (
+        //    return (
         //         foodGraph.push({
         //             calories: item.calories,
         //             date: moment(new Date(item.date * 1000)).format("MMM Do")
         //         })
         //     )
-
-        // });
-
-        console.log(Food)
+        //});
+        //const newGraph = foodGraph.sort((a, b) => {
+        //    return moment(a.date).diff(b.date)
+        //});
+        //console.log(Food)
 
         console.log(foodList)
 
@@ -152,6 +160,7 @@ class NutritionT extends Component {
                         <table>
                             <thead>
                                 <tr>
+                                    <th width="20%">Date</th>
                                     <th width="20%">Food Name</th>
                                     <th width="20%">Amount of Calories</th>
                                 </tr>

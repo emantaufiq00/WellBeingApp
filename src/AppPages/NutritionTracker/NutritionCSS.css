@@ -4,6 +4,10 @@
     color:white;
 }
 
+.textBox{
+    border-radius: 5px;
+  }
+
 .addButton{
     margin: 5px;
     margin-bottom: 1em !important;
