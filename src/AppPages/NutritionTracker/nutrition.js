@@ -146,7 +146,6 @@ class NutritionT extends Component {
 
         const foodGraph = []
         Food.map(item => {
-
             return (
                 foodGraph.push({
                     calories: item.calories,
@@ -214,7 +213,7 @@ class NutritionT extends Component {
                         <div>
                             <div className="pageTitle"> Nutrition Intake Summary</div>
                             <div className="moodChart">
-                                <ResponsiveContainer width="100%" height={400}>
+                                <ResponsiveContainer width="100%" height={500}>
                                     <ComposedChart
                                         width={500}
                                         height={400}

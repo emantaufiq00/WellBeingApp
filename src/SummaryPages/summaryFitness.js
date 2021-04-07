@@ -19,46 +19,46 @@ const data = [
     { value: 1700, Date: 30 },
     { value: 1300, Date: 40 },
     { value: 2000, Date: 20 },
-    { value: 2500, Date: 30 },
+    { value: 4500, Date: 30 },
     { value: 10000, Date: 40 },
+    { value: 150000, Date: 40 },
 ];
 
 
 
 
-export default class fitnessSummary extends PureComponent {
+export default function fitnessSummary(fitnessGraph) {
 
-    render() {
-        return (
-            <div>
-                <div className="pageTitle"> Fitness Summary</div>
-                <div className="moodChart">
-                    <ResponsiveContainer width="100%" height={400}>
-                        <ComposedChart
-                            width={500}
-                            height={400}
-                            data={data}
-                            margin={{
-                                top: 20,
-                                right: 20,
-                                bottom: 20,
-                                left: 20,
-                            }}
-                        >
-                            <CartesianGrid stroke="#f5f5f5" />
-                            <XAxis dataKey="Date" />
-                            <YAxis />
-                            <Tooltip />
-                            <Bar dataKey="value" barSize={20} fill=" rgb(208, 97, 255)" />
-                            <Line type="monotone" dataKey="value" stroke="#ff7300" />
-                        </ComposedChart>
-                    </ResponsiveContainer>
-                </div>
+    return (
+        <div>
+            <div className="pageTitle"> Fitness Summary</div>
+            <div className="moodChart">
+                <ResponsiveContainer width="100%" height={400}>
+                    <ComposedChart
+                        width={500}
+                        height={400}
+                        data={data}
+                        margin={{
+                            top: 20,
+                            right: 20,
+                            bottom: 20,
+                            left: 20,
+                        }}
+                    >
+                        <CartesianGrid stroke="#f5f5f5" />
+                        <XAxis dataKey="Date" />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="value" barSize={20} fill=" rgb(208, 97, 255)" />
+                        <Line type="monotone" dataKey="value" stroke="#ff7300" />
+                    </ComposedChart>
+                </ResponsiveContainer>
+            </div>
 
 
-            </div >
+        </div >
 
-        );
-    }
+    );
+
 
 }

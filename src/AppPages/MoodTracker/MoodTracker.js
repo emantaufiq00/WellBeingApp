@@ -182,7 +182,7 @@ class Welcome extends React.Component {
                 value = 3;
             }
             else if (item.emotion === "shocked") {
-                value = 4;
+                value = 2;
             }
             else if (item.emotion === "sad") {
                 value = 1;

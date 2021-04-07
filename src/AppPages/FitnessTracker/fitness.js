@@ -140,12 +140,12 @@ class Fitness extends PureComponent {
 
         console.log(fitnesshistory)
 
-        const fitnessGraph = []
+        let fitnessGraph = []
         fitnesshistory.map(item => {
 
             return (
                 fitnessGraph.push({
-                    calories: item.calories,
+                    number: item.calories,
                     date: moment(new Date(item.date * 1000)).format("MMM Do")
                 })
             )
@@ -252,33 +252,35 @@ class Fitness extends PureComponent {
                                 Back
                     </button>{" "}
                             <br />
-                            <div>
-                                <div className="pageTitle"> Fitness Summary</div>
-                                <div className="moodChart">
-                                    <ResponsiveContainer width="100%" height={400}>
-                                        <ComposedChart
-                                            width={500}
-                                            height={400}
-                                            data={fitnessGraph}
-                                            margin={{
-                                                top: 20,
-                                                right: 20,
-                                                bottom: 20,
-                                                left: 20,
-                                            }}
-                                        >
-                                            <CartesianGrid stroke="#f5f5f5" />
-                                            <XAxis dataKey="date" />
-                                            <YAxis />
-                                            <Tooltip />
-                                            <Bar dataKey="calories" barSize={20} fill=" rgb(201, 127, 127)" />
-                                            <Line type="monotone" dataKey="calories" stroke="#ff7300" />
-                                        </ComposedChart>
-                                    </ResponsiveContainer>
-                                </div>
+
+                            <div className="pageTitle"> Fitness Summary</div>
+                            <div className="moodChart">
+                                <ResponsiveContainer width="99%" height={400} >
+                                    <ComposedChart
+                                        width={500}
+                                        height={700}
+                                        data={fitnessGraph}
+                                        margin={{
+                                            top: 200,
+                                            right: 20,
+                                            bottom: 20,
+                                            left: 20,
+                                        }}
+                                    >
+
+                                        <CartesianGrid stroke="#e3dede" />
+                                        <XAxis dataKey="date" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Bar dataKey="number" barSize={20} fill="rgb(201, 127, 127" />
+                                        <Line type="monotone" dataKey="number" stroke="#ff7300" />
+                                    </ComposedChart>
+                                </ResponsiveContainer>
+                            </div>
 
 
-                            </div >
+
+
                         </div>
                     </div>
 
