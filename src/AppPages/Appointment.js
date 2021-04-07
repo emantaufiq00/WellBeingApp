@@ -97,8 +97,9 @@ export default class BookAppointment extends React.Component {
         <div className="App">
           <p className='BookSubtitle'> Want to book an appointment with a professional? </p>
           <form onSubmit={this.handleSubmit}>
-            <label for="start">Date:</label>
+            <label for="start">Date:   </label>
             <input
+              className="textBox"
               type="date"
               name="start"
               id="start"
@@ -108,7 +109,7 @@ export default class BookAppointment extends React.Component {
             <br />
             <br />
             <div className={this.checkData()}>
-              <textarea name="reason" id="reason" placeholder="Type something" onChange={e => e.target.value} /> <br />
+              <textarea className="textBox" name="reason" id="reason" placeholder="Reason..." onChange={e => e.target.value} /> <br />
               <button className="bookButton" type="submit">Make appointment </button>
             </div>
           </form>

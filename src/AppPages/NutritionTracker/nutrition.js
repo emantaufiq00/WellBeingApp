@@ -90,6 +90,13 @@ class NutritionT extends Component {
             isLoading: false
         });
     }
+    clickeds = () => {
+        this.setState({ isClicked: true });
+    };
+
+    back = () => {
+        this.setState({ isClicked: false });
+    };
 
     ManageDialog = () => {
         const history = useHistory();
@@ -115,6 +122,20 @@ class NutritionT extends Component {
                 <td>{item.calories}</td>
             </tr>
         });
+
+        // const foodGraph = []
+        // Food.map(item => {
+
+        //     return (
+        //         foodGraph.push({
+        //             calories: item.calories,
+        //             date: moment(new Date(item.date * 1000)).format("MMM Do")
+        //         })
+        //     )
+
+        // });
+
+        console.log(Food)
 
         console.log(foodList)
 
