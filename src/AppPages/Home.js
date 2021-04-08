@@ -59,6 +59,9 @@ function ButtonAppBar() {
         else if (text === 'Book Appointment') {
             history.push('/bookappointment')
         }
+        else if (text === 'Feed') {
+            history.push('/feed')
+        }
         else if (text === 'Fitness') {
             history.push('/fitness')
         }

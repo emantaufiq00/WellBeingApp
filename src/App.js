@@ -15,6 +15,7 @@ import Summary from './SummaryPages/MainSummary'
 import nutritionSummary from './SummaryPages/summaryNutrition.js'
 import fitnessSummary from './SummaryPages/summaryFitness.js'
 import moodSummary from './SummaryPages/summaryMood.js'
+import Feed from './AppPages/Feed/Feed.js'
 
 
 
@@ -33,6 +34,7 @@ function App() {
         <PrivateRoute exact path="/summaryNutrition" component={nutritionSummary} />
         <PrivateRoute exact path="/summaryFitness" component={fitnessSummary} />
         <PrivateRoute exact path="/summaryMood" component={moodSummary} />
+        <PrivateRoute exact path="/feed" component={Feed} />
         <Route exact path="/login" component={AccountBox} />
       </Router>
     </AuthProvider>
