@@ -74,6 +74,9 @@ function ButtonAppBar() {
         else if (text === 'Summary') {
             history.push('/summary')
         }
+        else if (text === 'Feed') {
+            history.push('/feed')
+        }
     }
 
     const list = (anchor) => (
