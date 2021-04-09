@@ -218,7 +218,7 @@ class Feed extends Component {
             <input className="enterTitle" name="title" id="title" placeholder="Enter Title" type="text" onChange={e => e.target.value} required />
           </div>
           <div>
-            <textarea className="enterData" name="desc" id="desc" type="textarea" placeholder="What do you wish to say?" onChange={e => e.target.value} required />
+            <textarea className="enterData" name="desc" id="desc" type="text" placeholder="What do you wish to say?" onChange={e => e.target.value} required />
             <br />
             <button className="postButton" type="btnsubmit">Post</button>
           </div>
