@@ -163,7 +163,7 @@ class NutritionT extends Component {
 
         return (
             <div>
-                <button className="addButton" variant="outlined" color="primary" onClick={handleOpen}>
+                <button className="viewHistory" variant="outlined" color="primary" onClick={handleOpen}>
                     View Nutrition history
             </button>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -258,7 +258,8 @@ class NutritionT extends Component {
                             borderRadius: "5px",
                             padding: "5px 10px",
                             fontWeight: "400",
-                            marginLeft: "-53em"
+                            marginLeft: "-53em",
+                            width: "15%"
                         }}
                     >
                         Summary

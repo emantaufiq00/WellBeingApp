@@ -169,7 +169,7 @@ class Fitness extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <img src={Bike} alt="Bike" />
                         <div className="holdingDiv">
-                            <label className="fieldTitle">Exercise Type :  </label>
+                            <label className="fieldTitle">Exercise Type: &nbsp; </label>
                             <input type="text"
                                 className="exerciseBox"
                                 name="exercise"
@@ -178,7 +178,7 @@ class Fitness extends Component {
                                 placeholder=" Enter exercise" required />
                         </div>
                         <div className='kcal'>
-                            <label className="fieldTitle">Calories Burnt : </label>
+                            <label className="fieldTitle">Calories Burnt: &nbsp;</label>
                             <input type="number" min="0"
                                 className="exerciseBox"
                                 name="calories"
@@ -189,7 +189,7 @@ class Fitness extends Component {
                             />
                         </div>
                         <div className='diff'>
-                            <label className="fieldTitle">Difficulty Level : </label>
+                            <label className="fieldTitle">Difficulty Level: &nbsp; </label>
                             <select name="difficulty"
                                 className="exerciseBox"
                                 id="difficulty"
@@ -204,7 +204,7 @@ class Fitness extends Component {
                         </div>
                         <button className="fitButton" type='submit'>Submit Exercise</button>
                     </form>
-                    <button className="fitButton" onClick={() => this.setState({ open: true })}>
+                    <button className="viewHistoryButton" onClick={() => this.setState({ open: true })}>
                         View Exercise History
                     </button>
                     <Dialog open={this.state.open} onClose={() => this.setState({ open: false })} aria-labelledby="form-dialog-title">
@@ -273,7 +273,7 @@ class Fitness extends Component {
                                         <XAxis dataKey='date' />
                                         <YAxis />
                                         <Tooltip />
-                                        <Bar dataKey='burnt' barSize={20} fill="rgb(201, 127, 127" />
+                                        <Bar dataKey='burnt' barSize={20} fill="rgb(201, 127, 127)" />
                                         <Line type="monotone" dataKey="burnt" stroke="#ff7300" />
                                     </ComposedChart>
                                 </ResponsiveContainer>
@@ -299,7 +299,9 @@ class Fitness extends Component {
                                     borderRadius: "5px",
                                     padding: "5px 10px",
                                     fontWeight: "400",
-                                    marginRight: "8em"
+                                    marginRight: "8em",
+                                    width: "15%"
+
                                 }}
                             >
                                 Summary

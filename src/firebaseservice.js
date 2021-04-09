@@ -20,9 +20,6 @@ class FirebaseService {
         app.database().ref("/Users/" + id + "/Info").set(user).catch(error => {
             console.log(error.message)
         });
-        app.database().ref("/Users/" + id + "/Food").set(this.state.emptyFood).catch(error => {
-            console.log(error.message)
-        });
     }
 
     addFood = (food, id) => {
@@ -105,6 +102,20 @@ class FirebaseService {
         dbApp.push(appoint);
     }
 
+    addPost = (post) => {
+        const dbFeed = app.database().ref("/Feed");
+        dbFeed.push(post);
+    }
+
+    getAllPosts() {
+        const dbFeed = app.database().ref("/Feed");
+        return dbFeed;
+    }
+
+    updatePost(key, value, dept, id) {
+        const dbFeed = app.database().ref("/Feed/" + dept + "/" + key);
+        return dbFeed.child(key).update(value);
+    }
 
 }
 export default new FirebaseService();

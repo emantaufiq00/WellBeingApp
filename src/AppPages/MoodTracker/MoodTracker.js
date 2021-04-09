@@ -245,7 +245,7 @@ class Welcome extends React.Component {
                         <form onSubmit={this.handleSubmit}>
                             <MoodButton
                                 style={{
-                                    backgroundColor: "#c71016",
+                                    backgroundColor: "#ff7770",
                                     border: "none",
                                     fontSize: "15px",
                                     borderRadius: "5px",
@@ -323,7 +323,7 @@ class Welcome extends React.Component {
                             >
                                 <MoodButton
                                     style={{
-                                        backgroundColor: "rgb(20,182,144)",
+                                        backgroundColor: "rgb(126, 166, 119)",
                                         border: "none",
                                         fontSize: "15px",
                                         borderRadius: "5px",
