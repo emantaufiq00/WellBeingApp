@@ -204,6 +204,7 @@ class Feed extends Component {
     return (
       <div>
         <ButtonAppBar /><br />
+        <h3 className='fitHead'>Feed</h3>
         <label className="switch">
           <input type="checkbox" onClick={this.checkFeedState} />
           <span className="slider round"></span>
