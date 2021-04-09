@@ -1,7 +1,7 @@
 
 
 /* eslint-disable no-lone-blocks */
-import React, { PureComponent } from "react";
+import React from "react";
 import { Planet } from "react-kawaii";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
