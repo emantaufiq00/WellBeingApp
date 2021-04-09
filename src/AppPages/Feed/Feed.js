@@ -155,6 +155,11 @@ class Feed extends Component {
     return <div>Local feed</div>;
   };
 
+  // showPopup = async (e) => {
+  //   return <p class="popuptext" id="myPopup">A Simple Popup!</p>
+
+  // }
+
   handleSubmit = async (e) => {
     e.preventDefault();
     const { title, desc } = e.target.elements;
@@ -175,6 +180,8 @@ class Feed extends Component {
     FirebaseService.addPost(this.state.post);
     FirebaseService.getAllPosts().once("value", this.onDataChange);
   }
+
+
 
   render() {
     const { isLoading, posts } = this.state;
@@ -221,6 +228,9 @@ class Feed extends Component {
             <textarea className="enterData" name="desc" id="desc" type="text" placeholder="What do you wish to say?" onChange={e => e.target.value} required />
             <br />
             <button className="postButton" type="btnsubmit">Post</button>
+            <input className="Reset" type="reset" value="Clear" />
+
+
           </div>
         </form>
         <br />
