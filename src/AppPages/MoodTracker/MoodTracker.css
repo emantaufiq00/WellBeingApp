@@ -12,7 +12,7 @@
   margin: 8px;
   border: none;
   outline: none;
-  background-color: #05386b !important;
+  background-color: #6392b0 !important;
   color: white;
   border-radius: 5px;
   padding: 5px 15px;
@@ -39,7 +39,7 @@
   top: 0;
   position: absolute;
   opacity: 1;
-  width: 99.5vw;
+  width: 100vw;
   height: 100vh;
   transition: opacity 0.5s;
   background-color:beige;

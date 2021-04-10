@@ -19,6 +19,7 @@ import Feed from './AppPages/Feed/Feed.js'
 
 
 
+
 function App() {
   return (
     <AuthProvider>
@@ -33,8 +34,8 @@ function App() {
         <PrivateRoute exact path="/bookappointment" component={BookAppointment} />
         <PrivateRoute exact path="/summaryNutrition" component={nutritionSummary} />
         <PrivateRoute exact path="/summaryFitness" component={fitnessSummary} />
-        <PrivateRoute exact path="/summaryMood" component={moodSummary} />
         <PrivateRoute exact path="/feed" component={Feed} />
+        <PrivateRoute exact path="/summaryMood" component={moodSummary} />
         <Route exact path="/login" component={AccountBox} />
       </Router>
     </AuthProvider>

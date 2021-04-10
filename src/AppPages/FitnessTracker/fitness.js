@@ -15,10 +15,10 @@ import {
     Line,
     Bar,
     XAxis,
-    Legend,
     YAxis,
     CartesianGrid,
     Tooltip,
+    Legend,
     ResponsiveContainer,
 } from 'recharts';
 
@@ -81,7 +81,6 @@ class Fitness extends Component {
     }
 
     onDataChange = (items) => {
-        console.log(items);
         let fitnesslist = [];
         items.forEach(item => {
             let data = item.val();
@@ -98,6 +97,8 @@ class Fitness extends Component {
             fitnesshistory: fitnesslist,
             isLoading: false
         });
+
+        console.log(fitnesslist)
     }
 
     handleSubmit = async (event) => {
@@ -140,17 +141,19 @@ class Fitness extends Component {
 
         console.log(fitnesshistory)
 
-        const fitnessGraph = []
+        let fitnessGraph = []
         fitnesshistory.map(item => {
-
+            let values = item.calories * 1
             return (
                 fitnessGraph.push({
-                    calories: item.calories,
+                    burnt: values,
                     date: moment(new Date(item.date * 1000)).format("MMM Do")
                 })
             )
 
         });
+
+
         console.log(fitnessGraph)
 
         if (isLoading === true) {
@@ -166,7 +169,7 @@ class Fitness extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <img src={Bike} alt="Bike" />
                         <div className="holdingDiv">
-                            <label className="fieldTitle">Exercise Type :  </label>
+                            <label className="fieldTitle">Exercise Type: &nbsp; </label>
                             <input type="text"
                                 className="exerciseBox"
                                 name="exercise"
@@ -175,7 +178,7 @@ class Fitness extends Component {
                                 placeholder=" Enter exercise" required />
                         </div>
                         <div className='kcal'>
-                            <label className="fieldTitle">Calories Burnt : </label>
+                            <label className="fieldTitle">Calories Burnt: &nbsp;</label>
                             <input type="number" min="0"
                                 className="exerciseBox"
                                 name="calories"
@@ -186,7 +189,7 @@ class Fitness extends Component {
                             />
                         </div>
                         <div className='diff'>
-                            <label className="fieldTitle">Difficulty Level : </label>
+                            <label className="fieldTitle">Difficulty Level: &nbsp; </label>
                             <select name="difficulty"
                                 className="exerciseBox"
                                 id="difficulty"
@@ -201,7 +204,7 @@ class Fitness extends Component {
                         </div>
                         <button className="fitButton" type='submit'>Submit Exercise</button>
                     </form>
-                    <button className="fitButton" onClick={() => this.setState({ open: true })}>
+                    <button className="viewHistoryButton" onClick={() => this.setState({ open: true })}>
                         View Exercise History
                     </button>
                     <Dialog open={this.state.open} onClose={() => this.setState({ open: false })} aria-labelledby="form-dialog-title">
@@ -250,35 +253,35 @@ class Fitness extends Component {
                                 Back
                     </button>{" "}
                             <br />
-                            <div>
-                                <div className="pageTitle"> Fitness Summary</div>
-                                <div className="moodChart">
-                                    <ResponsiveContainer width="100%" height={400}>
-                                        <ComposedChart
-                                            width={500}
-                                            height={400}
-                                            data={fitnessGraph}
-                                            margin={{
-                                                top: 20,
-                                                right: 20,
-                                                bottom: 20,
-                                                left: 20,
-                                            }}
-                                        >
 
-                                            <CartesianGrid stroke="#e3dede" />
-                                            <XAxis dataKey="date" />
-                                            <YAxis />
-                                            <Tooltip />
-                                            <Bar dataKey="calories" barSize={20} fill=" rgb(201, 127, 127" />
-                                            <Legend />
-                                            <Line type="monotone" dataKey="calories" stroke="#ff7300" />
-                                        </ComposedChart>
-                                    </ResponsiveContainer>
-                                </div>
+                            <div className="pageTitle"> Fitness Summary</div>
+                            <div className="moodChart">
+                                <ResponsiveContainer width="99%" height={400} >
+                                    <ComposedChart
+                                        width={500}
+                                        height={700}
+                                        data={fitnessGraph}
+                                        margin={{
+                                            top: 20,
+                                            right: 20,
+                                            bottom: 20,
+                                            left: 20,
+                                        }}
+                                    >
+
+                                        <CartesianGrid stroke="#e3dede" />
+                                        <XAxis dataKey='date' />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Bar dataKey='burnt' barSize={20} fill="rgb(201, 127, 127)" />
+                                        <Line type="monotone" dataKey="burnt" stroke="#ff7300" />
+                                    </ComposedChart>
+                                </ResponsiveContainer>
+                            </div>
 
 
-                            </div >
+
+
                         </div>
                     </div>
 
@@ -296,7 +299,9 @@ class Fitness extends Component {
                                     borderRadius: "5px",
                                     padding: "5px 10px",
                                     fontWeight: "400",
-                                    marginRight: "8em"
+                                    marginRight: "8em",
+                                    width: "15%"
+
                                 }}
                             >
                                 Summary

@@ -1,6 +1,14 @@
+.fitHead{
+  color:white;
+  margin-top:-2.5em;
+  padding-bottom: 1em;
+
+}
 .switch {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
+  float:left;
+  margin-left:1.25em;
   width: 60px;
   height: 34px;
 }
@@ -18,7 +26,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #ff7770;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -36,7 +44,7 @@
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #6392b0;
 }
 
 input:focus + .slider {
@@ -52,8 +60,114 @@ input:checked + .slider:before {
 /* Rounded sliders */
 .slider.round {
   border-radius: 34px;
+
 }
 
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+.userHolder{
+  float:right;
+  margin-top:-1em;
+  padding-right:1em;
+  text-align: left;
+}
+
+.switchLabel{
+  float:left;
+  margin-left:0.75em;
+  margin-top:0.25em;
+  font-weight:300;
+}
+
+
+
+.enterTitle{
+  border: 2px solid #ccc;
+  text-align: center;
+  border-radius: 5px;
+margin-right:2.5em;
+
+}
+
+.enterData{
+  border-radius: 5px;
+  width:30%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  margin-left:2em;
+  
+}
+.boxHeading{
+  font-weight: 300;
+}
+
+.postButton{
+margin: 5px;
+border: none;
+outline: none;
+background-color: #6392b0 !important;
+color: white;
+border-radius: 5px;
+padding: 5px 15px;
+font-weight: 400;
+transition: all 0.5s ease-in-out !important;
+}
+
+.Reset{
+background-color: #d83c2d !important;
+margin: 5px;
+border: none;
+outline: none;
+color: white;
+border-radius: 5px;
+padding: 5px 15px;
+font-weight: 400;
+transition: all 0.5s ease-in-out !important;
+
+  }
+
+.feedBox{
+  width: 45%;
+  height:100px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: auto;
+  margin-bottom: 1em;
+  margin-left: auto;
+  border: 2px solid #ccc;
+}
+
+.feedUser{
+  float:right;
+  padding-right: 1em;
+  font-weight: 300;
+}
+
+.feedDate{
+  float:right;
+  font-weight: 300;
+  
+}
+
+.feedTitle{
+  text-align: left;
+  padding:0;
+  margin-left:0.5em;
+  font-weight: 600;
+  
+}
+
+.feedDescription{
+  text-align: left;
+  margin-top: -1em;
+  margin-left:0.5em;
+}
+
+

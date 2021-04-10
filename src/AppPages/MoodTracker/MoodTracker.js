@@ -1,7 +1,7 @@
 
 
 /* eslint-disable no-lone-blocks */
-import React, { PureComponent } from "react";
+import React from "react";
 import { Planet } from "react-kawaii";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -182,7 +182,7 @@ class Welcome extends React.Component {
                 value = 3;
             }
             else if (item.emotion === "shocked") {
-                value = 4;
+                value = 2;
             }
             else if (item.emotion === "sad") {
                 value = 1;
@@ -245,7 +245,7 @@ class Welcome extends React.Component {
                         <form onSubmit={this.handleSubmit}>
                             <MoodButton
                                 style={{
-                                    backgroundColor: "#c71016",
+                                    backgroundColor: "#ff7770",
                                     border: "none",
                                     fontSize: "15px",
                                     borderRadius: "5px",
@@ -323,7 +323,7 @@ class Welcome extends React.Component {
                             >
                                 <MoodButton
                                     style={{
-                                        backgroundColor: "rgb(20,182,144)",
+                                        backgroundColor: "rgb(126, 166, 119)",
                                         border: "none",
                                         fontSize: "15px",
                                         borderRadius: "5px",

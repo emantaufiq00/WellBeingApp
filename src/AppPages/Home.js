@@ -77,6 +77,9 @@ function ButtonAppBar() {
         else if (text === 'Summary') {
             history.push('/summary')
         }
+        else if (text === 'Feed') {
+            history.push('/feed')
+        }
     }
 
     const list = (anchor) => (
@@ -108,7 +111,7 @@ function ButtonAppBar() {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="static" className="appBarColor">
                 <Toolbar>
                     <IconButton edge="start" onClick={toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
@@ -119,7 +122,7 @@ function ButtonAppBar() {
                     <Typography variant="h6" className={classes.title}>
 
                     </Typography>
-                    <Button color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
+                    <Button className="logoutButton" color="inherit" onClick={() => app.auth().signOut()}>Log Out</Button>
                 </Toolbar>
             </AppBar>
         </div>

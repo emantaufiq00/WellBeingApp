@@ -13,7 +13,8 @@
     margin-bottom: 1em !important;
     border: none !important;
     outline: none;
-    background-color: #05386b !important;
+    background-color:#ff7770 !important;
+    width:15% !important;
     color: white !important;
     border-radius: 5px;
     padding: 5px 15px;
@@ -21,3 +22,20 @@
     transition: all 0.5s ease-in-out !important;
     
 }
+
+.viewHistory{
+    margin: 5px;
+    margin-bottom: 1em !important;
+    border: none !important;
+    outline: none;
+    background-color:#6392b0 !important;
+    width:15% !important;
+    color: white !important;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-weight: 400;
+    transition: all 0.5s ease-in-out !important;
+    
+}
+
+
