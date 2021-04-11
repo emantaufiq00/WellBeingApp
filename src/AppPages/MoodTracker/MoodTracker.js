@@ -10,7 +10,7 @@ import { Button as MoodButton } from "reactstrap";
 import app from '../../firebaseconfig';
 import FirebaseService from '../../firebaseservice';
 import moment from 'moment';
-import ButtonAppBar from '../Home.js'
+import ButtonAppBar from '../navBar.js'
 import {
     ComposedChart,
     Line,

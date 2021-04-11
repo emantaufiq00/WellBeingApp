@@ -9,7 +9,7 @@ import FirebaseService from '../../firebaseservice';
 import './FitnessCSS.css'
 import Bike from './bikese.png'
 import moment from 'moment'
-import ButtonAppBar from '../Home.js'
+import ButtonAppBar from '../navBar.js'
 import {
     ComposedChart,
     Line,

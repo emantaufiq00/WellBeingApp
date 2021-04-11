@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import app from '../../firebaseconfig';
 import { useHistory } from 'react-router-dom';
 import FirebaseService from '../../firebaseservice';
-import ButtonAppBar from '../Home.js'
+import ButtonAppBar from '../navBar.js'
 import './NutritionCSS.css'
 import moment from 'moment'
 import {

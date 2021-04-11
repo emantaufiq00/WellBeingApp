@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import app from '../../firebaseconfig';
 import { useHistory } from 'react-router-dom';
 import FirebaseService from '../../firebaseservice';
-import ButtonAppBar from '../Home.js'
+import ButtonAppBar from '../navBar.js'
 let userAuth = app.auth().currentUser;
 
 
