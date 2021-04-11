@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import app from '../../firebaseconfig';
 import FirebaseService from '../../firebaseservice';
 import './FitnessCSS.css'
-import Bike from './bikese.png'
+import Gym from '../images/fitnessGym.png'
 import moment from 'moment'
 import ButtonAppBar from '../navBar.js'
 import {
@@ -167,7 +167,7 @@ class Fitness extends Component {
                 </div><br />
                 <body className='back' >
                     <form onSubmit={this.handleSubmit}>
-                        <img src={Bike} alt="Bike" />
+                        <img className="gymPic" src={Gym} alt="Gym" />
                         <div className="holdingDiv">
                             <label className="fieldTitle">Exercise Type: &nbsp; </label>
                             <input type="text"
