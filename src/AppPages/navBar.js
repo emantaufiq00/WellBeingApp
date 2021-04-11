@@ -15,7 +15,7 @@ import './common.css'
 import ListItemText from '@material-ui/core/ListItemText';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 
 
@@ -49,10 +49,51 @@ function ButtonAppBar() {
             return;
         }
 
+
         setState({ ...state, [anchor]: open });
     };
 
+
+    const location = useLocation();
+    console.log(location.pathname);
+
+    const checklocation = (text) => {
+        let currentLocation = getActualLocation(text)
+        if (location.pathname === currentLocation) {
+            toggleDrawer('left', false)
+        }
+        else {
+            goToSelected(text)
+        }
+    }
+    const getActualLocation = (text) => {
+        if (text === 'Home') {
+            return '/'
+        }
+        else if (text === 'Book Appointment') {
+            return '/bookappointment'
+        }
+        else if (text === 'Fitness') {
+            return '/fitness'
+        }
+        else if (text === 'Mood') {
+            return '/mood'
+        }
+        else if (text === 'Information') {
+            return '/information'
+        }
+        else if (text === 'Nutrition') {
+            return '/nutrition'
+        }
+        else if (text === 'Summary') {
+            return '/summary'
+        }
+        else if (text === 'Feed') {
+            return '/feed'
+        }
+    }
     const goToSelected = (text) => {
+
         if (text === 'Home') {
             history.push('/')
         }
@@ -77,6 +118,8 @@ function ButtonAppBar() {
         else if (text === 'Feed') {
             history.push('/feed')
         }
+
+
     }
 
     const list = (anchor) => (
@@ -89,7 +132,10 @@ function ButtonAppBar() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
+
                 {['Home', 'Feed', 'Mood', 'Nutrition', 'Fitness', 'Book Appointment', 'Summary'].map((text, index) => (
+                    // <ListItem button key={text} onClick={() => goToSelected(text)}>
+
                     <ListItem button key={text} onClick={() => goToSelected(text)}>
                         <ListItemText primary={text} />
                     </ListItem>
@@ -103,7 +149,7 @@ function ButtonAppBar() {
                     </ListItem>
                 ))}
             </List>
-        </div>
+        </div >
     );
 
     return (
