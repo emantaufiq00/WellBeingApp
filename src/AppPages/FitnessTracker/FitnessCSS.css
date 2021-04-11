@@ -25,7 +25,7 @@ margin: 5px;
 border: none;
 outline: none;
 background-color: #ff7770 !important;
-width: 15%;
+width: 16%;
 color: white;
 border-radius: 5px;
 padding: 5px 15px;
@@ -38,7 +38,7 @@ transition: all 0.5s ease-in-out !important;
     border: none;
     outline: none;
     background-color: #6392b0 !important;
-    width: 15%;
+    width: 16%;
     color: white;
     border-radius: 5px;
     padding: 5px 15px;
@@ -67,3 +67,32 @@ transition: all 0.5s ease-in-out !important;
 
   
   
+
+.gymPic{
+    width:20%;
+    padding-top:1em;
+    padding-bottom:1em;
+}
+
+
+
+
+.graphIcon{
+    width:12%;
+    margin-left:0.35em;
+    float:left;
+}
+
+.historyIcon{
+    width:12%;
+    margin-right:0.5em;
+    float:left;
+}
+
+.submitIcon{
+    width:12%;
+    float:left;
+    margin-right:0.5em;
+    transform: scaleX(-1);
+    
+}

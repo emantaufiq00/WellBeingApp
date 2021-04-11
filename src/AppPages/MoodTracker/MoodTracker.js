@@ -10,7 +10,9 @@ import { Button as MoodButton } from "reactstrap";
 import app from '../../firebaseconfig';
 import FirebaseService from '../../firebaseservice';
 import moment from 'moment';
-import ButtonAppBar from '../Home.js'
+import ButtonAppBar from '../navBar.js'
+import add from '../images/add.svg'
+import graph from '../images/graph.svg'
 import {
     ComposedChart,
     Line,
@@ -248,12 +250,14 @@ class Welcome extends React.Component {
                                     backgroundColor: "#ff7770",
                                     border: "none",
                                     fontSize: "15px",
+                                    width: "12%",
                                     borderRadius: "5px",
                                     marginTop: "1em",
                                     marginRight: "0.5em"
                                 }}
                                 type="submit"
                             >
+                                <img className="add" src={add} alt="add Button" />
                                 Submit Mood
                     </MoodButton>
                         </form>
@@ -326,11 +330,13 @@ class Welcome extends React.Component {
                                         backgroundColor: "rgb(126, 166, 119)",
                                         border: "none",
                                         fontSize: "15px",
+                                        width: "12%",
                                         borderRadius: "5px",
                                         marginRight: "4.5em"
                                     }}
                                 >
-                                    History
+                                    <img className="graphButton" src={graph} alt="graph Button" onClick={this.clickeds} />
+                                    Summary
                                 </MoodButton>
                             </div>
                         </div>

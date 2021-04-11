@@ -77,3 +77,8 @@
 .pageTitle{
   padding-bottom:4em;
 }
+
+.graphButton{
+  width:15%;
+  float:left;
+}

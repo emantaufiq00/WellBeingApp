@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import app from '../firebaseconfig';
 import FirebaseService from '../firebaseservice';
-import ButtonAppBar from './Home.js'
+import ButtonAppBar from './navBar.js'
 import './common.css'
 
 let userAuth = app.auth().currentUser;

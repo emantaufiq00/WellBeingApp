@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import FirebaseService from '../../firebaseservice'
 import app from '../../firebaseconfig'
 import moment from 'moment'
-import ButtonAppBar from '../Home'
+import ButtonAppBar from '../navBar'
 import "./Feed.css";
 
 let userAuth = app.auth().currentUser;

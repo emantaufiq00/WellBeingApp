@@ -3,7 +3,7 @@ import "./App.css";
 import AuthProvider from './Authentication';
 import PrivateRoute from './PrivateRoute';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from './AppPages/Home'
+import Home from './AppPages/Home/HomePage'
 import AccountBox from './accountBox/index';
 import showNutrition from './AppPages/NutritionTracker/nutrition.js'
 import Mood from './AppPages/MoodTracker/MoodTracker.js'
