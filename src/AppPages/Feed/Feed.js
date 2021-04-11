@@ -8,6 +8,7 @@ import "./Feed.css";
 let userAuth = app.auth().currentUser;
 class Feed extends Component {
   emptyPost = {
+    UserID: '',
     FirstName: '',
     LastName: '',
     Date: '',
@@ -25,8 +26,10 @@ class Feed extends Component {
       },
       post: this.emptyPost,
       posts: [],
+      likelist: [],
       isLoading: true,
-      globalFeed: true
+      globalFeed: true,
+      totallikes: [],
     };
     console.log(this.state.globalFeed)
   }
@@ -99,34 +102,100 @@ class Feed extends Component {
     });
   }
 
-  onDataChange = (items) => {
+  getLikes = (key) => {
+    FirebaseService.getLike(key).once("value", this.onLikeChange)
+  }
+
+  onLikeChange = (items) => {  
     console.log(items);
+    let likes = [];
+    items.forEach(item => {
+      let data = item.val();
+      likes.push({
+        key: item.key,
+        id: data.UserID
+      });
+    });
+    console.log(likes)
+
+    this.setState({
+      likelist: likes
+    });
+  }
+
+  onDataChange = (items) => {
     let posts = [];
     items.forEach(item => {
       let data = item.val();
+      let likeflag = false
+      console.log(item.key)
+      this.getLikes(item.key);
+      console.log(this.state.likelist)
       if (this.state.globalFeed) {
-        posts.push({
-          key: item.key,
-          firstname: data.FirstName,
-          lastname: data.LastName,
-          date: data.Date,
-          title: data.Title,
-          description: data.Description
-        });
-      }
-      else {
-        if (data.Department === this.state.info.Department) {
+        let i;
+        for (i = 0; i < this.state.likelist.length; i++) {
+          if (this.state.likelist[i].id === userAuth.uid) {
+            likeflag = true
+          }
+        }
+        if (likeflag === true) {
           posts.push({
             key: item.key,
             firstname: data.FirstName,
             lastname: data.LastName,
             date: data.Date,
             title: data.Title,
-            description: data.Description
-          });
+            description: data.Description,
+            liked: true
+          })
+        } else {
+          posts.push({
+            key: item.key,
+            firstname: data.FirstName,
+            lastname: data.LastName,
+            date: data.Date,
+            title: data.Title,
+            description: data.Description,
+            liked: false
+          })
         }
       }
+
+      else {
+        if (data.Department === this.state.info.Department) {
+          let i;
+          for (i = 0; i < this.state.likelist.length; i++) {
+            if (this.state.likelist[i].id === userAuth.uid) {
+              likeflag = true
+            }
+          }
+          if (likeflag === true) {
+            posts.push({
+              key: item.key,
+              firstname: data.FirstName,
+              lastname: data.LastName,
+              date: data.Date,
+              title: data.Title,
+              description: data.Description,
+              liked: true
+            })
+          } else {
+            posts.push({
+              key: item.key,
+              firstname: data.FirstName,
+              lastname: data.LastName,
+              date: data.Date,
+              title: data.Title,
+              description: data.Description,
+              liked: false
+            })
+          }
+          console.log(likeflag)
+        }
+      } 
     });
+  
+
 
     const newList = posts.sort((a, b) => {
       return moment(b.date).diff(a.date)
@@ -176,28 +245,13 @@ class Feed extends Component {
       Title: title.value
     };
 
-    console.log(this.state.post)
-    FirebaseService.addPost(this.state.post);
-    FirebaseService.getAllPosts().once("value", this.onDataChange);
+    FirebaseService.addPost(this.state.post)
+    FirebaseService.getAllPosts().once("value", this.onDataChange)
   }
-
-
 
   render() {
     const { isLoading, posts } = this.state;
-
-    const postList = posts.map(item => {
-      let datet = new Date(item.date * 1000);
-      const format = moment(datet).format('DD/MM/YYYY HH:mm:ss');
-      return <div key={item.key}>
-        <p style={{ whiteSpace: 'nowrap' }}>{item.firstname} {item.lastname}</p>
-        <p>{format}</p>
-        <h5>{item.title}</h5>
-        <p>{item.description}</p><br /><br />
-      </div>
-    });
-    console.log(postList)
-
+    
     if (isLoading === true) {
       return <p>Loading...</p>
     }
@@ -230,20 +284,44 @@ class Feed extends Component {
             <br />
             <button className="postButton" type="btnsubmit">Post</button>
             <input className="Reset" type="reset" value="Clear" />
-
-
           </div>
         </form>
         <br />
         <div>
           {posts.map(item => {
             let datet = new Date(item.date * 1000);
+            const handleNoLike = async () => {
+              this.state.like = {
+                UserID: userAuth.uid
+              };
+              console.log(item.liked)
+              console.log(this.state.like)
+              FirebaseService.addLike(this.state.like, item.key);
+              FirebaseService.getAllPosts().once("value", this.onDataChange);
+            }
+          
+            const removeLike = async () => {
+              console.log(item.key);
+              const likes = FirebaseService.getLike(item.key).once("value", this.onDataChange)
+              console.log(likes)
+              let key2 = "";
+              let i;
+              for (i = 0; i < likes.length; i++) {
+                if (likes[i].id === userAuth.uid) {
+                  key2 = likes[i].key
+                }
+              }
+              console.log(key2)
+              FirebaseService.deleteLike(item.key, key2);
+              FirebaseService.getAllPosts().once("value", this.onDataChange)
+            }
             const format = moment(datet).format('MMM Do');
             return <div key={item.key}>
               <div className="feedBox">
                 <p className="feedUser" style={{ whiteSpace: 'nowrap' }}>{format} · {item.firstname} {item.lastname}</p>
                 <p className="feedTitle">{item.title}</p>
                 <p className="feedDescription">{item.description}</p>
+                {item.liked ? <button onClick={ removeLike }>Liked</button> : <button onClick={ handleNoLike }>Like</button>}
               </div>
             </div>
           })}

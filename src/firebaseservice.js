@@ -117,5 +117,20 @@ class FirebaseService {
         return dbFeed.child(key).update(value);
     }
 
+    getLike = (key) => {
+        const dbLikes = app.database().ref("/Feed/" + key + "/Likes");
+        return dbLikes;
+    }
+
+    addLike(like, key) {
+        const dbLikes = app.database().ref("/Feed/" + key + "/Likes");
+        dbLikes.push(like);
+    }
+
+    deleteLike = (key, key2) => {
+        const dbLikes = app.database().ref("/Feed/" + key + "/Likes/" + key2);
+        dbLikes.remove()
+    }
+
 }
 export default new FirebaseService();
