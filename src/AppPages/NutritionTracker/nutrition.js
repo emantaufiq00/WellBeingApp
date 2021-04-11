@@ -11,6 +11,10 @@ import { useHistory } from 'react-router-dom';
 import FirebaseService from '../../firebaseservice';
 import ButtonAppBar from '../navBar.js'
 import './NutritionCSS.css'
+import food from '../images/diet.svg'
+import add from '../images/add.svg'
+import historyButton from '../images/history.svg'
+import graph from '../images/graph.svg'
 import moment from 'moment'
 import {
     ComposedChart,
@@ -163,7 +167,9 @@ class NutritionT extends Component {
 
         return (
             <div>
+
                 <button className="viewHistory" variant="outlined" color="primary" onClick={handleOpen}>
+                    <img className="add" src={historyButton} alt="history Button" onClick={handleOpen} />
                     View Nutrition history
             </button>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -243,11 +249,11 @@ class NutritionT extends Component {
                 </div>
 
 
-                <div
-                    className={this.state.isClicked ? "notShow" : "show"}
+                <div className={this.state.isClicked ? "notShow" : "show"}>
 
-                >
+
                     <button
+
                         onClick={this.clickeds}
                         style={{
                             backgroundColor: "rgb(126, 166, 119)",
@@ -262,8 +268,8 @@ class NutritionT extends Component {
                             width: "15%"
                         }}
                     >
-                        Summary
-                                </button>
+                        <img className="graphIcon" src={graph} alt="graph Button" onClick={this.clickeds} />Summary</button>
+
                 </div>
 
 
@@ -296,7 +302,12 @@ export default function showNutrition() {
             <div align="center" alignItems="center" justifyContent="center" display="flex"><br />
                 <h3 className="Nutritiontitle">Nutrition Tracker</h3>
                 <br />
+                <img className="foodPic" src={food} alt="Gym" />
+                <br />
+
                 <button className="addButton" onClick={() => history.push('/addfood')}>
+                    <img className="add" src={add} alt="add Button" onClick={() => history.push('/addfood')} />
+
                     Add Information
                 </button>
 

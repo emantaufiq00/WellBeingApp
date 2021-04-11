@@ -7,9 +7,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import app from '../../firebaseconfig';
 import FirebaseService from '../../firebaseservice';
 import './FitnessCSS.css'
-import Gym from '../images/fitnessGym.png'
+// import Gym from '../images/fitnessGym.png'
+import Gym from '../images/sport.svg'
+import tap from '../images/tap.svg'
 import moment from 'moment'
 import ButtonAppBar from '../navBar.js'
+import historyButton from '../images/history.svg'
+import graph from '../images/graph.svg'
 import {
     ComposedChart,
     Line,
@@ -202,9 +206,14 @@ class Fitness extends Component {
                                 <option value="very hard">Very hard</option>
                             </select>
                         </div>
-                        <button className="fitButton" type='submit'>Submit Exercise</button>
+
+                        <button className="fitButton" type='submit'>
+                            <img className="submitIcon" src={tap} alt="submit Button" />Submit Exercise
+                        </button>
                     </form>
+
                     <button className="viewHistoryButton" onClick={() => this.setState({ open: true })}>
+                        <img className="historyIcon" src={historyButton} alt="history Button" onClick={() => this.setState({ open: true })} />
                         View Exercise History
                     </button>
                     <Dialog open={this.state.open} onClose={() => this.setState({ open: false })} aria-labelledby="form-dialog-title">
@@ -290,6 +299,9 @@ class Fitness extends Component {
                             className={this.state.isClicked ? "notShow" : "show"}
                             onClick={this.clickeds}
                         >
+
+
+
                             <button
                                 style={{
                                     backgroundColor: "rgb(126, 166, 119)",
@@ -300,10 +312,12 @@ class Fitness extends Component {
                                     padding: "5px 10px",
                                     fontWeight: "400",
                                     marginRight: "8em",
-                                    width: "15%"
+                                    width: "16%",
+                                    textAlign: "center"
 
                                 }}
                             >
+                                <img className="graphIcon" src={graph} alt="summary Button" onClick={this.clickeds} />
                                 Summary
                                 </button>
                         </div>

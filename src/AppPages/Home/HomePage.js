@@ -3,9 +3,9 @@ import React from "react";
 import { useHistory } from 'react-router-dom';
 import ButtonAppBar from '../navBar.js'
 import './homeCSS.css'
-import nutritionIcon from '../images/nutritionPicture.png'
-import fitnessIcon from '../images/fitnessPicture.png'
-import moodIcon from '../images/moodPicture.png'
+import nutritionIcon from '../images/nutritionIcon.svg'
+import fitnessIcon from '../images/fitnessIcon.svg'
+import moodIcon from '../images/moodIcon.svg'
 
 function MainSummary() {
 
@@ -33,6 +33,7 @@ function MainSummary() {
                     <img className="iconSize"
                         src={nutritionIcon}
                         alt='Icon'
+                        onClick={nutritionChange}
                     />
                     <button className="homeButtons" onClick={nutritionChange}>Nutrition</button>
                 </div>
@@ -40,6 +41,8 @@ function MainSummary() {
                     <img className="iconSize"
                         src={fitnessIcon}
                         alt='Icon'
+                        onClick={fitnessChange}
+
                     />
                     <button className="homeButtons" onClick={fitnessChange}>Fitness</button>
                 </div>
@@ -47,6 +50,7 @@ function MainSummary() {
                     <img className="iconSize"
                         src={moodIcon}
                         alt='Icon'
+                        onClick={moodChange}
                     />
                     <button className="homeButtons" onClick={moodChange}>Mood</button>
                 </div>
