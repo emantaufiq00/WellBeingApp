@@ -6,6 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 import app from '../../firebaseconfig';
 import { useHistory } from 'react-router-dom';
 import FirebaseService from '../../firebaseservice';
@@ -120,23 +121,27 @@ class NutritionT extends Component {
         this.setState({ isClicked: false });
     };
 
-    ManageDialog = () => {
-        const history = useHistory();
-        const { Food } = this.state;
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        const { date, foodname, calories } = e.target.elements;
+        console.log(date.value)
+        console.log(foodname.value)
+        console.log(calories.value)
+
+        this.state.item = {
+            Calories: calories.value,
+            Date: date.value,
+            FoodName: foodname.value
+        };
+
+        console.log(this.state.item)
+        FirebaseService.addFood(this.state.item, userAuth.uid);
+    }
+
+    render() {
+        const { isLoading, Food } = this.state;
 
         console.log(this.state.Food)
-
-        const [open, setOpen] = useState(false);
-
-
-        const handleOpen = () => {
-            setOpen(true);
-        };
-
-
-        const handleClose = () => {
-            setOpen(false);
-        };
 
         const foodList = Food.map(item => {
             return <tr key={item.key}>
@@ -165,14 +170,56 @@ class NutritionT extends Component {
 
         console.log(foodList)
 
+        if (isLoading) {
+            return <p>Loading...</p>;
+        }
+
         return (
             <div>
-
-                <button className="viewHistory" variant="outlined" color="primary" onClick={handleOpen}>
-                    <img className="add" src={historyButton} alt="history Button" onClick={handleOpen} />
+                <form onSubmit={this.handleSubmit}>
+                    <label for="start">Date:   </label>
+                    <input
+                        className="textBox"
+                        type="date"
+                        name="date"
+                        id="date"
+                        min="2018-01-01"
+                        onChange={e => e.target.value}
+                        required
+                    />{" "}
+                    <br />
+                    <br />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="foodname"
+                        name="foodname"
+                        onChange={e => e.target.value}
+                        label="Name of food"
+                        type="text"
+                        fullWidth
+                        required
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="calories"
+                        name="calories"
+                        onChange={e => e.target.value}
+                        label="Number of calories"
+                        type="text"
+                        fullWidth
+                        required
+                    />
+                    <Button color="primary" type="submit">
+                        Add Information
+                    </Button>
+                </form>
+                <button className="viewHistory" variant="outlined" color="primary" onClick={() => this.setState({open: true})}>
+                    <img className="add" src={historyButton} alt="history Button" onClick={() => this.setState({open: true})} />
                     View Nutrition history
-            </button>
-                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                </button>
+                <Dialog open={this.state.open} onClose={() => this.setState({open: false})} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Your Nutrition History</DialogTitle>
                     <DialogContent>
                         <table>
@@ -189,7 +236,7 @@ class NutritionT extends Component {
                         </table>
                     </DialogContent>
                     <DialogActions><br />
-                        <Button onClick={handleClose} color="primary">
+                        <Button onClick={() => this.setState({open: false})} color="primary">
                             Go Back
                 </Button>
                     </DialogActions>
@@ -270,31 +317,13 @@ class NutritionT extends Component {
                     >
                         <img className="graphIcon" src={graph} alt="graph Button" onClick={this.clickeds} />Summary</button>
 
-                </div>
-
-
-
-            </div >
-        );
-    }
-
-    render() {
-        const { isLoading } = this.state;
-
-        if (isLoading) {
-            return <p>Loading...</p>;
-        }
-
-        return (
-            <div>
-                <this.ManageDialog />
+            </div>
             </div>
         );
     }
 }
 
 export default function showNutrition() {
-    const history = useHistory();
 
     return (
         <div>
@@ -305,17 +334,12 @@ export default function showNutrition() {
                 <img className="foodPic" src={food} alt="Gym" />
                 <br />
 
-                <button className="addButton" onClick={() => history.push('/addfood')}>
-                    <img className="add" src={add} alt="add Button" onClick={() => history.push('/addfood')} />
-
-                    Add Information
-                </button>
-
                 <NutritionT />
             </div>
         </div >
     );
 }
+
 
 
 
