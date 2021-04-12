@@ -129,7 +129,7 @@ class FirebaseService {
 
     deleteLike = (key, key2) => {
         const dbLikes = app.database().ref("/Feed/" + key + "/Likes/" + key2);
-        dbLikes.remove()
+        dbLikes.remove();
     }
 
 }

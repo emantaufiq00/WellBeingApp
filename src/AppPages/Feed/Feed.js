@@ -6,6 +6,7 @@ import ButtonAppBar from '../navBar'
 import "./Feed.css";
 
 let userAuth = app.auth().currentUser;
+let flag = false;
 class Feed extends Component {
   emptyPost = {
     UserID: '',
@@ -29,7 +30,7 @@ class Feed extends Component {
       likelist: [],
       isLoading: true,
       globalFeed: true,
-      totallikes: [],
+      templist: [],
     };
     console.log(this.state.globalFeed)
   }
@@ -68,6 +69,13 @@ class Feed extends Component {
     }
   }
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.likelist !== this.state.likelist && flag === false) {
+      FirebaseService.getAllPosts().once("value", this.onDataChange)
+      flag = true;
+    }
+  }
+
   componentWillUnmount = () => {
     app.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -103,28 +111,40 @@ class Feed extends Component {
   }
 
   getLikes = (key) => {
-    FirebaseService.getLike(key).once("value", this.onLikeChange)
+    FirebaseService.getLike(key).on("value", this.onLikeChange)
   }
 
   onLikeChange = (items) => {  
+    this.setState({likelist: []})
     console.log(items);
-    let likes = [];
     items.forEach(item => {
       let data = item.val();
-      likes.push({
+      this.state.likelist.push({
         key: item.key,
         id: data.UserID
-      });
+      })
     });
-    console.log(likes)
+    console.log(this.state.likelist)
 
-    this.setState({
-      likelist: likes
+  }
+
+  onLikesPost = (items) => {  
+    this.setState({templist: []});
+    console.log(items);
+    items.forEach(item => {
+      let data = item.val();
+      this.state.templist.push({
+        key: item.key,
+        id: data.UserID
+      })
     });
+
   }
 
   onDataChange = (items) => {
     let posts = [];
+    // eslint-disable-next-line react/no-direct-mutation-state
+    this.state.likelist = [];
     items.forEach(item => {
       let data = item.val();
       let likeflag = false
@@ -236,6 +256,7 @@ class Feed extends Component {
     console.log(desc.value)
     const unixtime = Math.round(new Date() / 1000);
 
+    // eslint-disable-next-line react/no-direct-mutation-state
     this.state.post = {
       Date: unixtime,
       Department: this.state.info.Department,
@@ -291,6 +312,7 @@ class Feed extends Component {
           {posts.map(item => {
             let datet = new Date(item.date * 1000);
             const handleNoLike = async () => {
+              // eslint-disable-next-line react/no-direct-mutation-state
               this.state.like = {
                 UserID: userAuth.uid
               };
@@ -302,13 +324,14 @@ class Feed extends Component {
           
             const removeLike = async () => {
               console.log(item.key);
-              const likes = FirebaseService.getLike(item.key).once("value", this.onDataChange)
-              console.log(likes)
+              FirebaseService.getLike(item.key).once("value", this.onLikesPost);
+
               let key2 = "";
               let i;
-              for (i = 0; i < likes.length; i++) {
-                if (likes[i].id === userAuth.uid) {
-                  key2 = likes[i].key
+              console.log(this.state.templist)
+              for (i = 0; i < this.state.templist.length; i++) {
+                if (this.state.templist[i].id === userAuth.uid) {
+                  key2 = this.state.templist[i].key
                 }
               }
               console.log(key2)
