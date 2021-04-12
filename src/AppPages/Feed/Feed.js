@@ -268,6 +268,7 @@ class Feed extends Component {
 
     FirebaseService.addPost(this.state.post)
     FirebaseService.getAllPosts().once("value", this.onDataChange)
+    flag = false;
   }
 
   render() {
