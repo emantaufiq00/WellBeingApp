@@ -7,7 +7,7 @@ import Home from './AppPages/Home/HomePage'
 import AccountBox from './accountBox/index';
 import showNutrition from './AppPages/NutritionTracker/nutrition.js'
 import Mood from './AppPages/MoodTracker/MoodTracker.js'
-import AddFood from './AppPages/NutritionTracker/addFood.js'
+import EditPage from './AppPages/editInfo.js'
 import BookAppointment from './AppPages/Appointment.js'
 import Fitness from './AppPages/FitnessTracker/fitness.js'
 import UserInformation from './AppPages/userinformation.js'
@@ -28,7 +28,7 @@ function App() {
         <PrivateRoute exact path="/nutrition" component={showNutrition} />
         <PrivateRoute exact path="/mood" component={Mood} />
         <PrivateRoute exact path="/summary" component={Summary} />
-        <PrivateRoute exact path="/addfood" component={AddFood} />
+        <PrivateRoute exact path="/editinfo" component={EditPage} />
         <PrivateRoute exact path="/fitness" component={Fitness} />
         <PrivateRoute exact path="/information" component={UserInformation} />
         <PrivateRoute exact path="/bookappointment" component={BookAppointment} />

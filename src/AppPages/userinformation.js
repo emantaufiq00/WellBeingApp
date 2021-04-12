@@ -3,11 +3,13 @@ import Button from '@material-ui/core/Button';
 import app from '../firebaseconfig';
 import FirebaseService from '../firebaseservice';
 import ButtonAppBar from './navBar.js'
+import { useHistory } from 'react-router-dom';
 import './common.css'
 
 let userAuth = app.auth().currentUser;
 console.log(userAuth);
-export default class UserInformation extends Component {
+
+class UserInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -48,7 +50,7 @@ export default class UserInformation extends Component {
                 console.log("User is logged in")
                 userAuth = user
                 console.log(userAuth)
-                FirebaseService.getInfo(userAuth.uid).on("value", this.onDataChange);
+                FirebaseService.getInfo(userAuth.uid).off("value", this.onDataChange);
 
             } else {
                 console.log("User not logged in")
@@ -89,18 +91,28 @@ export default class UserInformation extends Component {
         }
         return (
             <div>
-                <ButtonAppBar /><br />
                 <h3 className="navTitle"> Information </h3>
                 <h4>Your Information</h4>
                 <p>First Name: {this.state.Info.FirstName}</p>
                 <p>Last Name: {this.state.Info.LastName}</p>
                 <p>Email Address: {this.state.Info.Email}</p>
                 <p>FDM Employee ID: {this.state.Info.EmpID}</p>
-                <p>FDM Department: {this.state.Info.EmpDept}</p>
-                <Button variant="outlined" color="primary">
-                    Edit your Information
-                </Button>
+                <p>FDM Department: {this.state.Info.EmpDept}</p> 
             </div>
         )
     }
+}
+
+export default function UserInformation() {
+    const history = useHistory();
+
+    return (
+        <div>
+            <ButtonAppBar /><br />
+            <UserInfo />
+            <Button outline="variant" color="primary" onClick={() => history.push('/editinfo')}>
+                Edit your Information
+            </Button>
+        </div>
+    )
 }

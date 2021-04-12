@@ -52,9 +52,9 @@ class FirebaseService {
         return dbInfo;
     }
 
-    updateInfo(key, value, id) {
-        const dbInfo = app.database().ref("/Users/" + id + "/Info");
-        return dbInfo.child(key).update(value);
+    updateInfo(value, id) {
+        const dbInfo = app.database().ref("/Users/" + id);
+        return dbInfo.child("/Info").update(value);
     }
 
     addMood = (mood, id) => {
