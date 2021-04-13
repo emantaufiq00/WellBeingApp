@@ -128,6 +128,7 @@ class Feed extends Component {
 
   }
 
+
   onLikesPost = (items) => {
     this.setState({ templist: [] });
     console.log(items);
@@ -140,6 +141,8 @@ class Feed extends Component {
     });
 
   }
+
+
 
   onDataChange = (items) => {
     let posts = [];
@@ -244,10 +247,6 @@ class Feed extends Component {
     return <div>Local feed</div>;
   };
 
-  // showPopup = async (e) => {
-  //   return <p class="popuptext" id="myPopup">A Simple Popup!</p>
-
-  // }
 
   handleSubmit = async (e) => {
     e.preventDefault();
@@ -345,6 +344,7 @@ class Feed extends Component {
                 <p className="feedUser" style={{ whiteSpace: 'nowrap' }}>{format} · {item.firstname} {item.lastname}</p>
                 <p className="feedTitle">{item.title}</p>
                 <p className="feedDescription">{item.description}</p>
+
                 {item.liked ? <button className="likedButton" onClick={removeLike}>Liked</button> : <button className="likeButton" onClick={handleNoLike}>Like</button>}
               </div>
             </div>
