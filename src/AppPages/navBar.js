@@ -80,6 +80,9 @@ function ButtonAppBar() {
         else if (text === 'Feed') {
             history.push('/feed')
         }
+        else if (text === 'Settings') {
+            history.push('/settings')
+        }
     }
 
     const list = (anchor) => (

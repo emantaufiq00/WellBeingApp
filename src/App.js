@@ -16,6 +16,9 @@ import nutritionSummary from './SummaryPages/summaryNutrition.js'
 import fitnessSummary from './SummaryPages/summaryFitness.js'
 import moodSummary from './SummaryPages/summaryMood.js'
 import Feed from './AppPages/Feed/Feed.js'
+import Settings from './AppPages/Settings'
+import changePass from './AppPages/changepass'
+import changeEmail from './AppPages/changeemail'
 
 
 
@@ -36,6 +39,9 @@ function App() {
         <PrivateRoute exact path="/summaryFitness" component={fitnessSummary} />
         <PrivateRoute exact path="/feed" component={Feed} />
         <PrivateRoute exact path="/summaryMood" component={moodSummary} />
+        <PrivateRoute exact path="/settings" component={Settings} />
+        <PrivateRoute exact path="/changepass" component={changePass} />
+        <PrivateRoute exact path="/changeemail" component={changeEmail} />
         <Route exact path="/login" component={AccountBox} />
       </Router>
     </AuthProvider>
