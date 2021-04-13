@@ -74,9 +74,7 @@ function ButtonAppBar() {
         else if (text === 'Nutrition') {
             history.push('/nutrition')
         }
-        else if (text === 'Summary') {
-            history.push('/summary')
-        }
+
         else if (text === 'Feed') {
             history.push('/feed')
         }
@@ -95,7 +93,7 @@ function ButtonAppBar() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['Home', 'Feed', 'Mood', 'Nutrition', 'Fitness', 'Book Appointment', 'Summary'].map((text, index) => (
+                {['Home', 'Feed', 'Mood', 'Nutrition', 'Fitness', 'Book Appointment'].map((text, index) => (
                     <ListItem button key={text} onClick={() => goToSelected(text)}>
                         <ListItemText primary={text} />
                     </ListItem>
