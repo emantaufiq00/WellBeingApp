@@ -1,0 +1,20 @@
+.editIcon{
+    width:10%;
+    float:left;
+    margin-top:0.15em;
+}
+
+.addButton{
+    margin: 5px;
+    margin-bottom: 1em !important;
+    border: none !important;
+    outline: none;
+    background-color:#ff7770 !important;
+    width:15% !important;
+    color: white !important;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-weight: 400;
+    transition: all 0.5s ease-in-out !important;
+    
+}

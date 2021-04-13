@@ -8,7 +8,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import app from '../../firebaseconfig';
-import { useHistory } from 'react-router-dom';
 import FirebaseService from '../../firebaseservice';
 import ButtonAppBar from '../navBar.js'
 import './NutritionCSS.css'
@@ -176,7 +175,7 @@ class NutritionT extends Component {
 
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form className="nutritionForm" onSubmit={this.handleSubmit}>
                     <label for="start">Date:   </label>
                     <input
                         className="textBox"
@@ -211,9 +210,10 @@ class NutritionT extends Component {
                         fullWidth
                         required
                     />
-                    <Button color="primary" type="submit">
+                    <button className="addInfo" color="primary" type="submit">
+                        <img className="add" src={add} alt="add Button" />
                         Add Information
-                    </Button>
+                    </button>
                 </form>
                 <button className="viewHistory" variant="outlined" color="primary" onClick={() => this.setState({ open: true })}>
                     <img className="add" src={historyButton} alt="history Button" onClick={() => this.setState({ open: true })} />
