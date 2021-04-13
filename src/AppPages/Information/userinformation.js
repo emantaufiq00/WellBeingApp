@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import app from '../firebaseconfig';
-import FirebaseService from '../firebaseservice';
-import ButtonAppBar from './navBar.js'
-import edit from './images/edit.svg'
+import app from '../../firebaseconfig';
+import FirebaseService from '../../firebaseservice';
+import ButtonAppBar from '../navBar.js'
+import edit from '../images/edit.svg'
 import { useHistory } from 'react-router-dom';
-import './common.css';
+import '../common.css';
 import "./userInfo.css";
 
 let userAuth = app.auth().currentUser;

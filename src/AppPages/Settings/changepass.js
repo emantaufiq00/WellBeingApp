@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import app from '../firebaseconfig';
+import app from '../../firebaseconfig'
 import { useHistory } from 'react-router-dom';
-import ButtonAppBar from './navBar.js'
+import ButtonAppBar from '../navBar.js'
 let userAuth = app.auth().currentUser;
 
 
@@ -51,7 +51,7 @@ class EditPass extends Component {
         console.log(confirmpass.value)
 
         if (newpass.value === confirmpass.value) {
-            userAuth.updatePassword(newpass.value).then(function(user) {
+            userAuth.updatePassword(newpass.value).then(function (user) {
                 alert("Password has been successfully changed")
             }, (error) => {
                 alert(error.message)

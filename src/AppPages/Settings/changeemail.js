@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import app from '../firebaseconfig';
+import app from '../../firebaseconfig'
 import { useHistory } from 'react-router-dom';
-import ButtonAppBar from './navBar.js'
-import FirebaseService from '../firebaseservice'
+import ButtonAppBar from '../navBar.js'
+import FirebaseService from '../../firebaseservice'
 let userAuth = app.auth().currentUser;
 
 class EditEmail extends Component {
@@ -52,7 +52,7 @@ class EditEmail extends Component {
         }
 
         if (email.value === confirmemail.value) {
-            userAuth.updateEmail(email.value).then(function(user) {
+            userAuth.updateEmail(email.value).then(function (user) {
                 FirebaseService.updateInfo(newemail, userAuth.uid);
                 alert("Email has been successfully changed")
             }, (error) => {

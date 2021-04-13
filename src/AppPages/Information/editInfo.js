@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import app from '../firebaseconfig';
+import app from '../../firebaseconfig';
 import { useHistory } from 'react-router-dom';
-import FirebaseService from '../firebaseservice';
-import ButtonAppBar from './navBar.js'
+import FirebaseService from '../../firebaseservice';
+import ButtonAppBar from '../navBar.js'
 let userAuth = app.auth().currentUser;
 
 

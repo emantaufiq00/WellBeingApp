@@ -1,9 +1,9 @@
 import React from "react";
 import { useHistory } from 'react-router-dom';
-import ButtonAppBar from './navBar.js'
-import './Home/homeCSS.css'
-import email from './images/email.svg'
-import lock from './images/padlock.svg'
+import ButtonAppBar from '../navBar.js'
+import '../Home/homeCSS.css'
+import email from '../images/email.svg'
+import lock from '../images/padlock.svg'
 
 
 function Settings() {
