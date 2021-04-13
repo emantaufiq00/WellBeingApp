@@ -171,3 +171,30 @@ transition: all 0.5s ease-in-out !important;
 }
 
 
+.likeButton{
+  border: none;
+  float:right;
+  outline: none;
+  background-color: #6392b0 ;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top:-0.5em;
+  margin-right:0.25em;
+  font-weight: 400;
+  transition: all 0.5s ease-in-out 
+}
+
+.likedButton{
+  border: none;
+  float:right;
+  outline: none;
+  background-color: rgb(126, 166, 119) ;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-top:-0.5em;
+  margin-right:0.25em;
+  font-weight: 400;
+  transition: all 0.5s ease-in-out 
+}
