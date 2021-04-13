@@ -52,9 +52,9 @@ class FirebaseService {
         return dbInfo;
     }
 
-    updateInfo(key, value, id) {
-        const dbInfo = app.database().ref("/Users/" + id + "/Info");
-        return dbInfo.child(key).update(value);
+    updateInfo(value, id) {
+        const dbInfo = app.database().ref("/Users/" + id);
+        return dbInfo.child("/Info").update(value);
     }
 
     addMood = (mood, id) => {
@@ -115,6 +115,21 @@ class FirebaseService {
     updatePost(key, value, dept, id) {
         const dbFeed = app.database().ref("/Feed/" + dept + "/" + key);
         return dbFeed.child(key).update(value);
+    }
+
+    getLike = (key) => {
+        const dbLikes = app.database().ref("/Feed/" + key + "/Likes");
+        return dbLikes;
+    }
+
+    addLike(like, key) {
+        const dbLikes = app.database().ref("/Feed/" + key + "/Likes");
+        dbLikes.push(like);
+    }
+
+    deleteLike = (key, key2) => {
+        const dbLikes = app.database().ref("/Feed/" + key + "/Likes/" + key2);
+        dbLikes.remove();
     }
 
 }
