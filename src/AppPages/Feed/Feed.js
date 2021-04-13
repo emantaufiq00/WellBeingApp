@@ -345,7 +345,7 @@ class Feed extends Component {
                 <p className="feedUser" style={{ whiteSpace: 'nowrap' }}>{format} · {item.firstname} {item.lastname}</p>
                 <p className="feedTitle">{item.title}</p>
                 <p className="feedDescription">{item.description}</p>
-                {item.liked ? <button onClick={removeLike}>Liked</button> : <button onClick={handleNoLike}>Like</button>}
+                {item.liked ? <button className="likedButton" onClick={removeLike}>Liked</button> : <button className="likeButton" onClick={handleNoLike}>Like</button>}
               </div>
             </div>
           })}
