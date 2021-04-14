@@ -3,6 +3,7 @@ import "./AppointmentCSS.css";
 import app from '../../firebaseconfig';
 import ButtonAppBar from '../navBar'
 import FirebaseService from '../../firebaseservice'
+import moment from 'moment'
 
 let userAuth = app.auth().currentUser;
 export default class BookAppointment extends React.Component {
@@ -86,6 +87,7 @@ export default class BookAppointment extends React.Component {
     };
     console.log(this.state.appointment)
     FirebaseService.addApp(this.state.appointment, start.value, userAuth.uid);
+    alert("Your appointment at " + moment(start.value).format('Do MMMM YYYY') + " has been booked!")
 
   }
 
