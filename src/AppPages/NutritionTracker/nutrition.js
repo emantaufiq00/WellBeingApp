@@ -207,7 +207,7 @@ class NutritionT extends Component {
                         name="calories"
                         onChange={e => e.target.value}
                         label="Number of calories"
-                        type="text"
+                        type="number"
                         fullWidth
                         required
                     />

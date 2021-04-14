@@ -75,7 +75,7 @@ class EditEmail extends Component {
         console.log(credential)
     }
 
-    handleSubmit = async (e) => {
+    handleSubmit = (e) => {
         e.preventDefault();
         this.reauthenticate();
         const { email, confirmemail } = e.target.elements;
