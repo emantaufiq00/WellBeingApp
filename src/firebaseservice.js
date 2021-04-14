@@ -22,6 +22,11 @@ class FirebaseService {
         });
     }
 
+    getUsers() {
+        const db = app.database().ref("/Users");
+        return db
+    }
+
     addFood = (food, id) => {
         const dbFood = app.database().ref("/Users/" + id + "/Food");
         dbFood.push(food);
