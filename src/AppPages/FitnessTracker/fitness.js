@@ -117,6 +117,7 @@ class Fitness extends Component {
             DateOfExercise: unixtime
         };
         FirebaseService.addFitness(this.state.Fitness, userAuth.uid)
+        alert("Workout has been successfully added to your summary!")
     }
 
     clickeds = () => {
