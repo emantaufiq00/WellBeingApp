@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { LoginForm } from "./loginForm.jsx";
 import { SignupForm } from "./signupForm.jsx";
+import { ForgotForm } from "./forgotForm.jsx";
 import { motion } from "framer-motion";
 import { AccountContext } from "./accountContent";
 
@@ -147,7 +148,14 @@ export default function AccountBox(props) {
         }, 400);
     }
 
-    const contextValue = { switchToSignup, switchToSignin };
+    const switchToForgotPass = () => {
+        playExpandedingAnimation();
+        setTimeout(() => {
+            setActive("forgot");
+        }, 400);
+    }
+
+    const contextValue = { switchToSignup, switchToSignin, switchToForgotPass };
     return (
         <AppContainer>
             <AccountContext.Provider value={contextValue}>
@@ -169,10 +177,16 @@ export default function AccountBox(props) {
                             <HeaderText>Account</HeaderText>
                             <SmallText>Please sign-up to continue!</SmallText>
                         </HeaderContainer>}
+                        {active === "forgot" && <HeaderContainer>
+                            <HeaderText>Forgot</HeaderText>
+                            <HeaderText>Password?</HeaderText>
+                            <SmallText>Please enter the email of the account to reset password!</SmallText>
+                        </HeaderContainer>}
                     </TopContainer>
                     <InnerContainer>
                         {active === "signin" && <LoginForm />}
                         {active === "signup" && <SignupForm />}
+                        {active === "forgot" && <ForgotForm />}
                     </InnerContainer>
                 </BoxContainer>
             </AccountContext.Provider>
