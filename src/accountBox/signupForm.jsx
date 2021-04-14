@@ -11,10 +11,10 @@ async function createUserData(user, id) {
   FirebaseService.createUser(user, id)
 }
 
- function getIDs() {
+ async function getIDs() {
    ids = [];
    keys = [];  
-   const getKeys = (items) => {
+   const getKeys = async (items) => {
     console.log(items);
     items.forEach(item => {
       keys.push(item.key);

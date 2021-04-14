@@ -90,25 +90,32 @@ class EditInfo extends Component {
             console.log(lastname.value)
             console.log(dept.value)
 
-            if (firstname.value === "") {
-                firstname.value = this.state.Info.FirstName
-            }
-            if (lastname.value === "") {
-                lastname.value = this.state.Info.LastName
-            }
-            if (dept.value === "") {
-                dept.value = this.state.Info.EmpDept
-            }
+            if (firstname.value === "" && lastname.value === "" && dept.value === "") {
+                alert("Your information has stayed the same.")
+            } else {
+                if (firstname.value === "") {
+                    firstname.value = this.state.Info.FirstName
+                }
+                if (lastname.value === "") {
+                    lastname.value = this.state.Info.LastName
+                }
+                if (dept.value === "") {
+                    dept.value = this.state.Info.EmpDept
+                }
 
-            this.state.item = {
-                EmpDept: dept.value,
-                FirstName: firstname.value,
-                LastName: lastname.value
-            };
+                this.state.item = {
+                    EmpDept: dept.value,
+                    FirstName: firstname.value,
+                    LastName: lastname.value
+                };
 
-            console.log(this.state.item)
-            FirebaseService.updateInfo(this.state.item, userAuth.uid);
-            alert("Your information has been successfully changed, go back to view your new updated info")
+                console.log(this.state.item)
+                FirebaseService.updateInfo(this.state.item, userAuth.uid);
+                firstname.value = '' 
+                lastname.value = '' 
+                dept.value = '';
+                alert("Your information has been successfully changed, go back to view your new updated info")
+            }
         }
 
         return (
@@ -123,7 +130,6 @@ class EditInfo extends Component {
                         label="Your First Name"
                         type="text"
                         fullWidth
-                        required
                     />
                     <TextField
                         autoFocus
@@ -134,7 +140,6 @@ class EditInfo extends Component {
                         label="Your last name"
                         type="text"
                         fullWidth
-                        required
                     />
                     <TextField
                         autoFocus
@@ -145,7 +150,6 @@ class EditInfo extends Component {
                         label="Your department"
                         type="text"
                         fullWidth
-                        required
                     />
                     <Button color="primary" type="submit">
                         Add Information
