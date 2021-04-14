@@ -25,7 +25,7 @@ export function ForgotForm(props) {
     return (
         <BoxContainer>
             <FormContainer onSubmit={handleResetPass}>
-                <Input id="email" name="email" type="email" placeholder="Email" onChange={event => event.target.value} />
+                <Input id="email" name="email" type="email" placeholder="Email" onChange={event => event.target.value} required />
 
                 <Marginer direction="vertical" margin="1em" />
                 <SubmitButton type="submit" >Login</SubmitButton>
