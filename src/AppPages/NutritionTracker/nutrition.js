@@ -135,6 +135,7 @@ class NutritionT extends Component {
 
         console.log(this.state.item)
         FirebaseService.addFood(this.state.item, userAuth.uid);
+        alert("Food information has been successfully added to your summary!")
     }
 
     render() {

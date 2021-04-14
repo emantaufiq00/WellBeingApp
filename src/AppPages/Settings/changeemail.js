@@ -5,9 +5,19 @@ import app from '../../firebaseconfig'
 import { useHistory } from 'react-router-dom';
 import ButtonAppBar from '../navBar.js'
 import FirebaseService from '../../firebaseservice'
+
 let userAuth = app.auth().currentUser;
 
 class EditEmail extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            credentials: {
+                email: '',
+                password: ''
+            }
+        }
+    }
 
 
     componentDidMount = () => {
@@ -15,7 +25,10 @@ class EditEmail extends Component {
             if (user) {
                 console.log("User is logged in")
                 userAuth = user
+                console.log(user)
                 console.log(userAuth)
+                FirebaseService.getInfo(userAuth.uid).on("value", this.onDataChange)
+
             } else {
                 console.log("User not logged in")
             }
@@ -31,6 +44,8 @@ class EditEmail extends Component {
                 console.log("User is logged in")
                 userAuth = user
                 console.log(userAuth)
+                FirebaseService.getInfo(userAuth.uid).off("value", this.onDataChange)
+
             } else {
                 console.log("User not logged in")
             }
@@ -40,10 +55,30 @@ class EditEmail extends Component {
         }
     }
 
+    onDataChange = (item) => {
+        console.log(item);
+        let data = item.val();
+        this.setState({
+            credentials: {
+                email: data.Email,
+                password: data.Password
+            }
+        })
+        console.log(this.state.credentials)
+    }
+
+    reauthenticate = () => {
+        const email = this.state.credentials.email;
+        const password = this.state.credentials.password;
+        const credential = app.firebase_.auth.EmailAuthProvider.credential(email, password);
+        userAuth.reauthenticateWithCredential(credential);
+        console.log(credential)
+    }
+
     handleSubmit = async (e) => {
         e.preventDefault();
-        let { email, confirmemail } = e.target.elements;
-
+        this.reauthenticate();
+        const { email, confirmemail } = e.target.elements;
         console.log(email.value)
         console.log(confirmemail.value)
 
@@ -54,7 +89,7 @@ class EditEmail extends Component {
         if (email.value === confirmemail.value) {
             userAuth.updateEmail(email.value).then(function (user) {
                 FirebaseService.updateInfo(newemail, userAuth.uid);
-                alert("Email has been successfully changed")
+                alert("Your email has been successfully changed")
             }, (error) => {
                 alert(error.message)
             });
@@ -91,7 +126,7 @@ class EditEmail extends Component {
                         required
                     />
                     <Button color="primary" type="submit">
-                        Change Password
+                        Change Email
                     </Button>
                 </form>
             </div>
@@ -106,7 +141,7 @@ export default function ChangeEmail() {
     return (
         <div>
             <ButtonAppBar /><br />
-            <h4>Update your Password</h4>
+            <h4>Update your Email</h4>
             <EditEmail />
             <Button variant="outlined" color="primary" onClick={() => history.push('/settings')}>
                 Go Back

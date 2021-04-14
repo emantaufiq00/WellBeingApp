@@ -161,6 +161,7 @@ class Welcome extends React.Component {
             }
             FirebaseService.addMood(this.state.mood, userAuth.uid);
         }
+        alert("Mood has been successfully added to your summary!")
 
     }
 

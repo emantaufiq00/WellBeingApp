@@ -85,10 +85,9 @@ class EditInfo extends Component {
     render() {
         const handleSubmit = async (e) => {
             e.preventDefault();
-            let { firstname, lastname, email, dept } = e.target.elements;
+            let { firstname, lastname, dept } = e.target.elements;
             console.log(firstname.value)
             console.log(lastname.value)
-            console.log(email.value)
             console.log(dept.value)
 
             if (firstname.value === "") {
@@ -97,15 +96,11 @@ class EditInfo extends Component {
             if (lastname.value === "") {
                 lastname.value = this.state.Info.LastName
             }
-            if (email.value === "") {
-                email.value = this.state.Info.Email
-            }
             if (dept.value === "") {
                 dept.value = this.state.Info.EmpDept
             }
 
             this.state.item = {
-                Email: email.value,
                 EmpDept: dept.value,
                 FirstName: firstname.value,
                 LastName: lastname.value
@@ -113,6 +108,7 @@ class EditInfo extends Component {
 
             console.log(this.state.item)
             FirebaseService.updateInfo(this.state.item, userAuth.uid);
+            alert("Your information has been successfully changed, go back to view your new updated info")
         }
 
         return (
@@ -137,17 +133,6 @@ class EditInfo extends Component {
                         onChange={e => e.target.value}
                         label="Your last name"
                         type="text"
-                        fullWidth
-                        required
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="email"
-                        name="email"
-                        onChange={e => e.target.value}
-                        label="Your email address"
-                        type="email"
                         fullWidth
                         required
                     />
