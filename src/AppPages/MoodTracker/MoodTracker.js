@@ -152,7 +152,7 @@ class Welcome extends React.Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         if (this.state.moodemot === "") {
-            return <p>Please select a mood</p>
+            alert("Please select a mood")
         } else {
             const unixtime = Math.round(new Date() / 1000)
             this.state.mood = {
@@ -160,7 +160,9 @@ class Welcome extends React.Component {
                 Time: unixtime
             }
             FirebaseService.addMood(this.state.mood, userAuth.uid);
+            alert("Mood has been successfully added to your summary!")
         }
+
 
     }
 
