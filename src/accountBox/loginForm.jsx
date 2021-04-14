@@ -34,7 +34,7 @@ export function LoginForm({ history }) {
     [history]
   );
 
-  const { switchToSignup } = useContext(AccountContext);
+  const { switchToSignup, switchToForgotPass } = useContext(AccountContext);
   const { currentUser } = useContext(AuthContext);
 
   if (currentUser) {
@@ -49,7 +49,7 @@ export function LoginForm({ history }) {
         <Input id="email" name="email" type="email" placeholder="Email" onChange={event => event.target.value} />
         <Input id="password" name="password" type="password" placeholder="Password" onChange={event => event.target.value} />
         <Marginer direction="vertical" margin={10} />
-        <MutedLink href="#">Forgot your password?</MutedLink>
+        <MutedLink href="#" onClick={switchToForgotPass}>Forgot your password?</MutedLink>
         <Marginer direction="vertical" margin="1em" />
         <SubmitButton type="submit" >Login</SubmitButton>
       </FormContainer>
