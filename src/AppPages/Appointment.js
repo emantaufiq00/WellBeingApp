@@ -105,11 +105,11 @@ export default class BookAppointment extends React.Component {
               id="start"
               min="2018-01-01"
               onChange={e => e.target.value}
-            />{" "}
+              required/>{" "}
             <br />
             <br />
             <div className={this.checkData()}>
-              <textarea className="textBox" name="reason" id="reason" placeholder="Reason..." onChange={e => e.target.value} /> <br />
+              <textarea className="textBox" name="reason" id="reason" placeholder="Reason..." onChange={e => e.target.value} required /> <br />
               <button className="bookButton" type="submit">Make appointment </button>
             </div>
           </form>
