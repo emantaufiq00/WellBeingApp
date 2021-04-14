@@ -178,13 +178,14 @@ transition: all 0.5s ease-in-out !important;
   color: white;
   border-radius: 5px;
   padding: 5px 10px;
-  margin-top:-0.5em;
+  margin-top:-3em;
   margin-right:0.25em;
   font-weight: 400;
   transition: all 0.5s ease-in-out 
 }
 
 .likedButton{
+  /* border: 1px solid red; */
   border: none;
   float:right;
   outline: none;
@@ -192,8 +193,24 @@ transition: all 0.5s ease-in-out !important;
   color: white;
   border-radius: 5px;
   padding: 5px 10px;
-  margin-top:-0.5em;
+  margin-top:-3em;
   margin-right:0.25em;
   font-weight: 400;
   transition: all 0.5s ease-in-out 
+}
+
+.likeCount{
+
+  margin-top: 0;
+  margin-right: 1.5em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  width:5%;
+}
+
+.liked{
+  width:4%;
+  margin-top:-2.5em;
+  margin-right:0.25em;
+  float:right;
 }

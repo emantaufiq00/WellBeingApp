@@ -3,6 +3,8 @@ import FirebaseService from '../../firebaseservice'
 import app from '../../firebaseconfig'
 import moment from 'moment'
 import ButtonAppBar from '../navBar'
+import liked from '../images/liked.svg'
+import like from '../images/like.svg'
 import "./Feed.css";
 
 let userAuth = app.auth().currentUser;
@@ -153,7 +155,8 @@ class Feed extends Component {
       let likeflag = false
       console.log(item.key)
       this.getLikes(item.key);
-      console.log(this.state.likelist)
+
+
       if (this.state.globalFeed) {
         let i;
         for (i = 0; i < this.state.likelist.length; i++) {
@@ -169,7 +172,8 @@ class Feed extends Component {
             date: data.Date,
             title: data.Title,
             description: data.Description,
-            liked: true
+            liked: true,
+            count: this.state.likelist.length
           })
         } else {
           posts.push({
@@ -179,7 +183,8 @@ class Feed extends Component {
             date: data.Date,
             title: data.Title,
             description: data.Description,
-            liked: false
+            liked: false,
+            count: this.state.likelist.length
           })
         }
       }
@@ -200,7 +205,8 @@ class Feed extends Component {
               date: data.Date,
               title: data.Title,
               description: data.Description,
-              liked: true
+              liked: true,
+              count: this.state.likelist.length
             })
           } else {
             posts.push({
@@ -210,7 +216,8 @@ class Feed extends Component {
               date: data.Date,
               title: data.Title,
               description: data.Description,
-              liked: false
+              liked: false,
+              count: this.state.likelist.length
             })
           }
           console.log(likeflag)
@@ -334,7 +341,7 @@ class Feed extends Component {
                   key2 = this.state.templist[i].key
                 }
               }
-              console.log(key2)
+
               FirebaseService.deleteLike(item.key, key2);
               FirebaseService.getAllPosts().once("value", this.onDataChange)
             }
@@ -344,8 +351,8 @@ class Feed extends Component {
                 <p className="feedUser" style={{ whiteSpace: 'nowrap' }}>{format} · {item.firstname} {item.lastname}</p>
                 <p className="feedTitle">{item.title}</p>
                 <p className="feedDescription">{item.description}</p>
-
-                {item.liked ? <button className="likedButton" onClick={removeLike}>Liked</button> : <button className="likeButton" onClick={handleNoLike}>Like</button>}
+                <p className="likeCount">{item.count}</p>
+                {item.liked ? <img className="liked" src={liked} alt="like Button" onClick={removeLike} /> : <img className="liked" src={like} alt="like Button" onClick={handleNoLike} />}
               </div>
             </div>
           })}
