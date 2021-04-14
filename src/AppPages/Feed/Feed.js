@@ -3,6 +3,8 @@ import FirebaseService from '../../firebaseservice'
 import app from '../../firebaseconfig'
 import moment from 'moment'
 import ButtonAppBar from '../navBar'
+import liked from '../images/liked.svg'
+import like from '../images/like.svg'
 import "./Feed.css";
 
 let userAuth = app.auth().currentUser;
@@ -114,8 +116,8 @@ class Feed extends Component {
     FirebaseService.getLike(key).on("value", this.onLikeChange)
   }
 
-  onLikeChange = (items) => {  
-    this.setState({likelist: []})
+  onLikeChange = (items) => {
+    this.setState({ likelist: [] })
     console.log(items);
     items.forEach(item => {
       let data = item.val();
@@ -128,8 +130,9 @@ class Feed extends Component {
 
   }
 
-  onLikesPost = (items) => {  
-    this.setState({templist: []});
+
+  onLikesPost = (items) => {
+    this.setState({ templist: [] });
     console.log(items);
     items.forEach(item => {
       let data = item.val();
@@ -141,6 +144,8 @@ class Feed extends Component {
 
   }
 
+
+
   onDataChange = (items) => {
     let posts = [];
     // eslint-disable-next-line react/no-direct-mutation-state
@@ -150,7 +155,8 @@ class Feed extends Component {
       let likeflag = false
       console.log(item.key)
       this.getLikes(item.key);
-      console.log(this.state.likelist)
+
+
       if (this.state.globalFeed) {
         let i;
         for (i = 0; i < this.state.likelist.length; i++) {
@@ -166,7 +172,8 @@ class Feed extends Component {
             date: data.Date,
             title: data.Title,
             description: data.Description,
-            liked: true
+            liked: true,
+            count: this.state.likelist.length
           })
         } else {
           posts.push({
@@ -176,7 +183,8 @@ class Feed extends Component {
             date: data.Date,
             title: data.Title,
             description: data.Description,
-            liked: false
+            liked: false,
+            count: this.state.likelist.length
           })
         }
       }
@@ -197,7 +205,8 @@ class Feed extends Component {
               date: data.Date,
               title: data.Title,
               description: data.Description,
-              liked: true
+              liked: true,
+              count: this.state.likelist.length
             })
           } else {
             posts.push({
@@ -207,14 +216,15 @@ class Feed extends Component {
               date: data.Date,
               title: data.Title,
               description: data.Description,
-              liked: false
+              liked: false,
+              count: this.state.likelist.length
             })
           }
           console.log(likeflag)
         }
-      } 
+      }
     });
-  
+
 
 
     const newList = posts.sort((a, b) => {
@@ -244,10 +254,6 @@ class Feed extends Component {
     return <div>Local feed</div>;
   };
 
-  // showPopup = async (e) => {
-  //   return <p class="popuptext" id="myPopup">A Simple Popup!</p>
-
-  // }
 
   handleSubmit = async (e) => {
     e.preventDefault();
@@ -273,7 +279,7 @@ class Feed extends Component {
 
   render() {
     const { isLoading, posts } = this.state;
-    
+
     if (isLoading === true) {
       return <p>Loading...</p>
     }
@@ -322,7 +328,7 @@ class Feed extends Component {
               FirebaseService.addLike(this.state.like, item.key);
               FirebaseService.getAllPosts().once("value", this.onDataChange);
             }
-          
+
             const removeLike = async () => {
               console.log(item.key);
               FirebaseService.getLike(item.key).once("value", this.onLikesPost);
@@ -335,7 +341,7 @@ class Feed extends Component {
                   key2 = this.state.templist[i].key
                 }
               }
-              console.log(key2)
+
               FirebaseService.deleteLike(item.key, key2);
               FirebaseService.getAllPosts().once("value", this.onDataChange)
             }
@@ -345,7 +351,8 @@ class Feed extends Component {
                 <p className="feedUser" style={{ whiteSpace: 'nowrap' }}>{format} · {item.firstname} {item.lastname}</p>
                 <p className="feedTitle">{item.title}</p>
                 <p className="feedDescription">{item.description}</p>
-                {item.liked ? <button onClick={ removeLike }>Liked</button> : <button onClick={ handleNoLike }>Like</button>}
+                <p className="likeCount">{item.count}</p>
+                {item.liked ? <img className="liked" src={liked} alt="like Button" onClick={removeLike} /> : <img className="liked" src={like} alt="like Button" onClick={handleNoLike} />}
               </div>
             </div>
           })}

@@ -1,8 +1,8 @@
 import React from "react";
 import "./AppointmentCSS.css";
-import app from '../firebaseconfig';
-import ButtonAppBar from './navBar'
-import FirebaseService from '../firebaseservice'
+import app from '../../firebaseconfig';
+import ButtonAppBar from '../navBar'
+import FirebaseService from '../../firebaseservice'
 
 let userAuth = app.auth().currentUser;
 export default class BookAppointment extends React.Component {

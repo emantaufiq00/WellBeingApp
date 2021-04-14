@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import app from '../firebaseconfig';
-import FirebaseService from '../firebaseservice';
-import ButtonAppBar from './navBar.js'
+import app from '../../firebaseconfig';
+import FirebaseService from '../../firebaseservice';
+import ButtonAppBar from '../navBar.js'
+import edit from '../images/edit.svg'
 import { useHistory } from 'react-router-dom';
-import './common.css'
+import '../common.css';
+import "./userInfo.css";
 
 let userAuth = app.auth().currentUser;
 console.log(userAuth);
@@ -97,7 +98,7 @@ class UserInfo extends Component {
                 <p>Last Name: {this.state.Info.LastName}</p>
                 <p>Email Address: {this.state.Info.Email}</p>
                 <p>FDM Employee ID: {this.state.Info.EmpID}</p>
-                <p>FDM Department: {this.state.Info.EmpDept}</p> 
+                <p>FDM Department: {this.state.Info.EmpDept}</p>
             </div>
         )
     }
@@ -110,9 +111,10 @@ export default function UserInformation() {
         <div>
             <ButtonAppBar /><br />
             <UserInfo />
-            <Button outline="variant" color="primary" onClick={() => history.push('/editinfo')}>
+            <button className="addButton" outline="variant" color="primary" onClick={() => history.push('/editinfo')}>
+                <img className="editIcon" src={edit} alt="edit Button" onClick={() => history.push('/editinfo')} />
                 Edit your Information
-            </Button>
+            </button>
         </div>
     )
 }
