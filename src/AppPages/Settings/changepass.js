@@ -83,8 +83,13 @@ class EditPass extends Component {
         console.log(newpass.value)
         console.log(confirmpass.value)
 
+        let changedpass = {
+            Password: newpass.value
+        }
+
         if (newpass.value === confirmpass.value) {
-            userAuth.updatePassword(newpass.value).then(function (user) {
+            userAuth.updatePassword(newpass.value).then(function(user) {
+                FirebaseService.updateInfo(changedpass, userAuth.uid)
                 alert("Password has been successfully changed")
             }, (error) => {
                 alert(error.message)
