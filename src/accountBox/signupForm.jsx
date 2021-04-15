@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from "react";
 import { BoxContainer, FormContainer, Input, SubmitButton, MutedLink, BoldLink } from "./common";
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContent";
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import app from '../firebaseconfig';
 import FirebaseService from '../firebaseservice';
 let keys = [];
@@ -11,34 +11,40 @@ async function createUserData(user, id) {
   FirebaseService.createUser(user, id)
 }
 
- async function getIDs() {
-   ids = [];
-   keys = [];  
-   const getKeys = async (items) => {
-    console.log(items);
-    items.forEach(item => {
-      keys.push(item.key);
-    })   
-  }
-
-  const getID = (item) => {
-    console.log(item);
-    let data = item.val();
-    console.log(data.EmpID)
-    ids.push(data.EmpID);
-  }
-
-  FirebaseService.getUsers().on("value", getKeys);
-  let i;
-  for (i = 0; i < keys.length; i++) {
-    FirebaseService.getInfo(keys[i]).once("value", getID)
-  }
-  console.log(keys);
-}
+ 
 
 export function SignupForm() {
+
+  const getIDs = () => {
+    ids = [];
+    keys = [];  
+    const getKeys =  (items) => {
+     console.log(items);
+     items.forEach(item => {
+       keys.push(item.key);
+     })   
+   }
+ 
+   const getID = (item) => {
+     console.log(item);
+     let data = item.val();
+     console.log(data.EmpID)
+     ids.push(data.EmpID);
+   }
+ 
+   FirebaseService.getUsers().on("value", getKeys);
+   let i;
+   for (i = 0; i < keys.length; i++) {
+     FirebaseService.getInfo(keys[i]).on("value", getID)
+   }
+   console.log(keys);
+   console.log(ids)
+  }
+
+ getIDs();
+
   const { switchToSignin } = useContext(AccountContext);
-  getIDs();
+
   console.log(ids);
  
 

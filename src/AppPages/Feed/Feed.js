@@ -85,7 +85,7 @@ class Feed extends Component {
         userAuth = user
         console.log(userAuth)
         FirebaseService.getAllPosts().off("value", this.onDataChange);
-        FirebaseService.getInfo(userAuth.uid).on("value", this.onGetInfo);
+        FirebaseService.getInfo(userAuth.uid).off("value", this.onGetInfo);
 
       } else {
         console.log("User not logged in")
@@ -100,16 +100,18 @@ class Feed extends Component {
   }
 
   onGetInfo = (item) => {
-    console.log(item);
-    let data = item.val();
-    this.setState({
-      info: {
-        FirstName: data.FirstName,
-        LastName: data.LastName,
-        Email: data.Email,
-        Department: data.EmpDept
-      }
-    });
+    try {
+      console.log(item);
+      let data = item.val();
+      this.setState({
+        info: {
+          FirstName: data.FirstName,
+          LastName: data.LastName,
+          Email: data.Email,
+          Department: data.EmpDept
+        }
+      });
+    } catch (error) {}
   }
 
   getLikes = (key) => {
